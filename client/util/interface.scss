@@ -1,0 +1,47 @@
+/*interface.scss*/
+@import "./colors";
+//@import "./fonts/fonts";
+body {
+  //background-color: $bgColor;
+  min-width: 360px;
+  //font-family: 'Futura Md BT',sans-serif;
+  //color: $colorWhiteText;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; ///* 100% */
+  // font-family: Futura Bk BT;
+  // font-family: 'Futura PT', sans-serif;
+  // text-transform: uppercase;
+// overflow: hidden;
+}
+.App{
+
+  overflow: hidden;
+}
+button {
+  background-color: transparent;
+  border: none;
+  color: $colorWhite;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+// font-family: Futura Bk BT;
+}
+
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: $colorWhiteText;
+}
+
+ul {
+  margin: 0;
+  padding: 0 ;
+  li {
+    list-style-type: none;
+  }
+}
