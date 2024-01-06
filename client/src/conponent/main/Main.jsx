@@ -1,12 +1,14 @@
 import React from 'react';
 import s from './Main.module.scss'
 import Nav from "./nav/Nav";
+import NewCard from "./newCard/NewCard";
 
 const Main = () => {
     return (
         <main>
             <div className={"container"}>
                 <Nav/>
+                <NewCard/>
             </div>
         </main>
     );

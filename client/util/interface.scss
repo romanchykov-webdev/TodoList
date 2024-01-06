@@ -45,3 +45,10 @@ ul {
     list-style-type: none;
   }
 }
+input,textarea{
+  border: none;
+  //border-bottom: 1px solid #5f6368;
+  &:focus-visible{
+    outline: none;
+  }
+}
