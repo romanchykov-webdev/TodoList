@@ -1,9 +1,11 @@
-
+import Header from "./conponent/header/Header";
+import Main from "./conponent/main/Main";
 
 function App() {
   return (
     <div className="App">
-        Todo list
+        <Header/>
+        <Main/>
     </div>
   );
 }

@@ -1,0 +1,18 @@
+.nav{
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: 1px solid red;
+  //width: 40px;
+  height: auto;
+  padding: 15px;
+  ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    li{
+      margin-bottom: 20px;
+      font-size: 30px;
+    }
+  }
+}
