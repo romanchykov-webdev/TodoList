@@ -6,6 +6,19 @@
       "title": "json-server",
       "author": "typicode"
     }
+  ],
+  "boards": [
+    {
+      "id": 1,
+      "label": ["all"],
+      "title": "ok",
+      "color": "Green",
+      "panelChangeBGColor": false,
+      "isFavorite": false,
+      "labelCheckBox": [],
+      "textareaCheckBox": []
+
+    }
   ]
 
 }

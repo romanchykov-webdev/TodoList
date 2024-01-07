@@ -5,7 +5,7 @@ import NewCard from "./newCard/NewCard";
 
 const Main = () => {
     return (
-        <main>
+        <main className={s.main}>
             <div className={"container"}>
                 <Nav/>
                 <NewCard/>

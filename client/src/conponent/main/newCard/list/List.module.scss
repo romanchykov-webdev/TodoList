@@ -1,0 +1,22 @@
+@import "../../../../../util/colors";
+
+
+
+.wrapperList{
+  width: 100%;
+
+  .createNew{
+    display: flex;
+    align-items: center;
+    span{
+      font-size: 20px;
+      border: 1px solid black;
+      padding: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    input{
+
+    }
+  }
+}

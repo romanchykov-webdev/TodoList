@@ -4,21 +4,22 @@ import {newCardShowAction, textareaAction} from "../newCardSliceReducer";
 import {useDispatch} from "react-redux";
 
 
-const Textarea = () => {
+const Textarea = ({mainTextarea,setMainTextarea}) => {
 
     const textareaRef = useRef(null);
-    const [text, setText] = useState('');
+    // const [text, setText] = useState('');
     const [textareaHeight, setTextareaHeight] = useState('auto');
 
     const handleTextareaChange = (event) => {
-        setText(event.target.value);
+        setMainTextarea(event.target.value)
+        // setText(event.target.value);
         adjustTextareaHeight();
     };
 
     const adjustTextareaHeight = () => {
-        const textareaLineHeight = 24; // Замените это значением высоты строки textarea
-        const minRows = 1;
-        const maxRows = 10; // Максимальное количество строк, которые могут быть отображены
+        const textareaLineHeight = 24; // высотa строки textarea
+        const minRows = 2;
+        const maxRows = 1000; // Максимальное количество строк
 
         const currentRows = Math.floor(textareaRef.current.scrollHeight / textareaLineHeight);
         const rows = Math.min(maxRows, Math.max(minRows, currentRows));
@@ -34,11 +35,12 @@ const Textarea = () => {
     }
 
     return (
-        <textarea name="" id="" rows="1"
+        <textarea className={s.textarea} name="" id="" rows="1"
                   placeholder={"Label ..."}
                   ref={textareaRef}
                   style={{ height: textareaHeight }}
-                  value={text}
+                  // value={text}
+                  value={mainTextarea}
                   onChange={handleTextareaChange}
                   onClick={()=>textareaHandler()}
         ></textarea>

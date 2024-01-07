@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './NewCard.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {listAction, newCardHiddenAction, newCardShowAction, textareaAction} from "./newCardSliceReducer";
+import {listAction, newCardHiddenAction} from "./newCardSliceReducer";
 import Textarea from "./textarea/Textarea";
+import List from "./list/List";
+import {v4} from "uuid";
 
 
 const NewCard = () => {
@@ -10,8 +12,16 @@ const NewCard = () => {
     const isActive=useSelector(state => state.newCardSlice.isActive)
     const isTextarea=useSelector(state => state.newCardSlice.isTextarea)
     const isList=useSelector(state => state.newCardSlice.isList)
+
+    const listTemp=useSelector(state => state.newCardSlice.listTemp)
+//     const[newListTemp,setNewListTemp]=useState([])
+//     useEffect(() => {
+//         setNewListTemp(listTemp)
+//     }, [listTemp]);
+// console.log("render")
     //
     const [headerInput,setHeaderInput]=useState('')
+
     const [mainTextarea,setMainTextarea]=useState('')
     //
 
@@ -24,8 +34,19 @@ const NewCard = () => {
     }
 
     function createHandles() {
-        setHeaderInput('')
-        setMainTextarea('')
+        // setHeaderInput('')
+        // setMainTextarea('')
+        const newCard={
+            "id": v4(),
+            "label": ["all"],
+            "title": headerInput,
+            "color": "Green",
+            "panelChangeBGColor": false,
+            "isFavorite": false,
+            "labelCheckBox": listTemp,
+            "textareaCheckBox": []
+        }
+        console.log(newCard)
     }
 
 
@@ -56,7 +77,7 @@ const NewCard = () => {
 
                 <div className={s.wrapperMain}>
                     {
-                        isTextarea &&    <Textarea/>
+                        isTextarea &&    <Textarea setMainTextarea={setMainTextarea} mainTextarea={mainTextarea}/>
 
                     }
 
@@ -72,7 +93,7 @@ const NewCard = () => {
                             d="m42 24.14c0-1.104.896-2 2-2 1.104 0 2 .896 2 2v14.86c0 3.863-3.137 7-7 7h-30c-3.863 0-7-3.137-7-7v-30c0-3.863 3.137-7 7-7h30c3.863 0 7 3.137 7 7v1.54c0 1.104-.68 2.583-1.519 3.301l-19.132 16.398c-.839.718-2.123.639-2.868-.176l-7.961-8.713c-.745-.817-.687-2.085.13-2.83.817-.745 2.085-.687 2.83.13l6.016 6.591c.372.408 1.014.447 1.433.088l16.312-13.978c.419-.359.759-1.099.759-1.651v-.7c0-1.656-1.344-3-3-3h-28c-2.76 0-5 2.24-5 5v26c0 2.76 2.24 5 5 5h26c2.76 0 5-2.24 5-5z"
                             fill="url(#a)"/></svg>
                 </span>
-                            : !isTextarea ? <span>list false</span> :null
+                            : !isTextarea ? <List/> :null
 
                     }
 
