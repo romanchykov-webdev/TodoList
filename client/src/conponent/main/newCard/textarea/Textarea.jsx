@@ -10,9 +10,10 @@ const Textarea = ({mainTextarea,setMainTextarea}) => {
     // const [text, setText] = useState('');
     const [textareaHeight, setTextareaHeight] = useState('auto');
 
-    const handleTextareaChange = (event) => {
+    const handlerTextareaChange = (event) => {
         setMainTextarea(event.target.value)
         // setText(event.target.value);
+
         adjustTextareaHeight();
     };
 
@@ -41,7 +42,7 @@ const Textarea = ({mainTextarea,setMainTextarea}) => {
                   style={{ height: textareaHeight }}
                   // value={text}
                   value={mainTextarea}
-                  onChange={handleTextareaChange}
+                  onChange={handlerTextareaChange}
                   onClick={()=>textareaHandler()}
         ></textarea>
     );

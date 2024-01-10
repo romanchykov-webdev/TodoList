@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import s from './NewCard.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {listAction, newCardHiddenAction} from "./newCardSliceReducer";
+import {isFavoriteToggleAction, listAction, newCardHiddenAction} from "./newCardSliceReducer";
 import Textarea from "./textarea/Textarea";
 import List from "./list/List";
 import {v4} from "uuid";
+import axios from "axios";
 
 
 const NewCard = () => {
@@ -12,14 +13,15 @@ const NewCard = () => {
     const isActive=useSelector(state => state.newCardSlice.isActive)
     const isTextarea=useSelector(state => state.newCardSlice.isTextarea)
     const isList=useSelector(state => state.newCardSlice.isList)
+    const isFavorite=useSelector(state => state.newCardSlice.isFavorite)
+
+
+
+
 
     const listTemp=useSelector(state => state.newCardSlice.listTemp)
-//     const[newListTemp,setNewListTemp]=useState([])
-//     useEffect(() => {
-//         setNewListTemp(listTemp)
-//     }, [listTemp]);
-// console.log("render")
-    //
+    const textareaTemp=useSelector(state => state.newCardSlice.textareaTemp)
+
     const [headerInput,setHeaderInput]=useState('')
 
     const [mainTextarea,setMainTextarea]=useState('')
@@ -33,20 +35,42 @@ const NewCard = () => {
         setMainTextarea('')
     }
 
-    function createHandles() {
+    // function createHandles() {
+    const createHandles= async (e) => {
         // setHeaderInput('')
         // setMainTextarea('')
         const newCard={
             "id": v4(),
             "label": ["all"],
-            "title": headerInput,
-            "color": "Green",
+            "title": headerInput.length===0 ? 'new card' : headerInput,
+            "color": "white",
             "panelChangeBGColor": false,
-            "isFavorite": false,
+            "isFavorite": isFavorite,
             "labelCheckBox": listTemp,
-            "textareaCheckBox": []
+            "textareaCheckBox": textareaTemp,
+            "dateCreate": new Date()
         }
-        console.log(newCard)
+        console.log({newCard})
+        // post
+
+            try {
+                await axios.post('http://localhost:5000/boards', {
+                    "id": v4(),
+                    "label": ["all"],
+                    "title": headerInput.length===0 ? 'new card' : headerInput,
+                    "color": "white",
+                    "panelChangeBGColor": false,
+                    "isFavorite": isFavorite,
+                    "labelCheckBox": listTemp,
+                    "textareaCheckBox": mainTextarea,
+                    "dateCreate": new Date()
+                })
+                // getData();
+            } catch (error) {
+                console.log(error)
+            }
+
+        // post
     }
 
 
@@ -64,13 +88,26 @@ const NewCard = () => {
                                placeholder={"Enter title"}
                                value={headerInput}
                                onChange={(e)=>setHeaderInput(e.target.value)}/>
-                        <div className={s.favorites}>
+
+                    <div className={s.wrapperIcons}>
+                        <div className={s.bookmark}>
+
+                            <svg x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
+                                <path fill="#f4efef" d="M37,43l-13-6l-13,6V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4V43z"></path>
+                            </svg>
+                        </div>
+                        <div className={s.favorites}
+                            onClick={()=>dispatch(isFavoriteToggleAction())}
+                        >
                             <svg width="48" height="48" viewBox="0 0 24 24">
                                 <path fill="none" d="M0 0h24v24H0z"/>
-                                <path fill="#000"
+                                <path
+                                    fill={isFavorite ? "gold" : "black"}
                                       d="M17 4v7l2 3v2h-6v5l-1 1-1-1v-5H5v-2l2-3V4c0-1.1.9-2 2-2h6c1.11 0 2 .89 2 2zM9 4v7.75L7.5 14h9L15 11.75V4H9z"/>
                             </svg>
                         </div>
+                    </div>
+
                     </div>
                 }
 

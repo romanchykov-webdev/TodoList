@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {v4} from "uuid";
+
 
 
 const newCardSliceReducer = createSlice({
@@ -8,6 +8,7 @@ const newCardSliceReducer = createSlice({
         isActive: false,
         isTextarea: true,
         isList: true,
+        isFavorite: false,
         listTemp: [
             {
                 id: '12323',
@@ -46,6 +47,10 @@ const newCardSliceReducer = createSlice({
             // debugger
             state.listTemp.push(newItem)
         },
+        textareaTempPushAction(state,action){
+            const {newItem} = action.payload
+            state.textareaTemp.push(newItem)
+        },
         listToggleCompletedAction(state, action) {
             const id = action.payload;
             // const updateList = state.listTemp.map(item =>
@@ -68,6 +73,11 @@ const newCardSliceReducer = createSlice({
 
             state.listTemp=state.listTemp.filter(item=>item.id!==id)
         },
+        isFavoriteToggleAction(state,action){
+            const id = action.payload
+            state.isFavorite= !state.isFavorite
+        },
+
         createNewCardAction(state,action){
 
         },
@@ -83,6 +93,8 @@ export const {
     textareaAction,
     listAction,
     listTempPushAction,
+    textareaTempPushAction,
     listToggleCompletedAction,
     removeListTempItemAction,
+    isFavoriteToggleAction,
 } = newCardSliceReducer.actions
