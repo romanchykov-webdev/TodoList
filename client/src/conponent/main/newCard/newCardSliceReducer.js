@@ -1,22 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 
-
 const newCardSliceReducer = createSlice({
     name: "newCard",
     initialState: {
+        id: "new",
         isActive: false,
         isTextarea: true,
         isList: true,
         isFavorite: false,
-        listTemp: [
-            {
-                id: '12323',
-                title: 'Complited',
-                completed: true,
-            }
-        ],
-        textareaTemp:[]
+        listTemp: [],
+        textareaTemp: []
 
     },
     reducers: {
@@ -47,12 +41,13 @@ const newCardSliceReducer = createSlice({
             // debugger
             state.listTemp.push(newItem)
         },
-        textareaTempPushAction(state,action){
+        textareaTempPushAction(state, action) {
             const {newItem} = action.payload
             state.textareaTemp.push(newItem)
         },
         listToggleCompletedAction(state, action) {
             const id = action.payload;
+            // debugger
             // const updateList = state.listTemp.map(item =>
             //     item.id === id
             //         ? {...item, completed: !item.completed}
@@ -66,21 +61,39 @@ const newCardSliceReducer = createSlice({
                 itemToToggle.completed = !itemToToggle.completed;
             }
         },
-        removeListTempItemAction(state,action){
+        removeListTempItemAction(state, action) {
             const id = action.payload
             // const removeItem=state.listTemp.filter(item=>item.id !== id)
             // state.listTemp=removeItem
 
-            state.listTemp=state.listTemp.filter(item=>item.id!==id)
+            state.listTemp = state.listTemp.filter(item => item.id !== id)
         },
-        isFavoriteToggleAction(state,action){
+        isFavoriteToggleAction(state, action) {
             const id = action.payload
-            state.isFavorite= !state.isFavorite
+            state.isFavorite = !state.isFavorite
         },
 
-        createNewCardAction(state,action){
-
+        createNewCardAction(state) {
+            state.listTemp=[]
+            state.textareaTemp=[]
         },
+        changeListTempValueAction(state,action){
+            const {id,title}=action.payload
+            // debugger
+            state.listTemp.map(item=>{
+                if(item.id===id){
+                    item.title=title
+                }
+            })
+        },
+        changeTextareaTempValueAction(state,action){
+            // const {id,title}=action.payload
+            // debugger
+            state.textareaTemp=action.payload
+
+
+        }
+
 
 
     }
@@ -97,4 +110,7 @@ export const {
     listToggleCompletedAction,
     removeListTempItemAction,
     isFavoriteToggleAction,
+    createNewCardAction,
+    changeListTempValueAction,
+    changeTextareaTempValueAction,
 } = newCardSliceReducer.actions

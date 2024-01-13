@@ -1,23 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './ListCompleted.module.scss'
 import {useDispatch} from "react-redux";
-import {listToggleCompletedAction, removeListTempItemAction} from "../../newCardSliceReducer";
+import {
+    changeListTempValueAction,
+    listToggleCompletedAction,
+    removeListTempItemAction
+} from "../../newCardSliceReducer";
 
 
-const ListCompleted = ({mockArray,num}) => {
+const ListCompleted = ({mockArray,num,item}) => {
     const dispatch=useDispatch()
 
+    const [changeValue,setChangeValue]=useState()
+    useEffect(() => {
+        setChangeValue(item.title)
+        console.log("change item")
+    }, [item.title]);
 
+    const changeHandler = (e) => {
+        setChangeValue(e.target.value);
+        dispatch(changeListTempValueAction({ id: item.id, title: e.target.value }));
+    };
 
     return (
-        <div className={s.wrapperListNoCompleted}>
-            {num &&
-                <div className={s.checkedItems}>
-                   {num} checked items
-                </div>
-            }
+        <div className={s.wrapperList}>
+
+
             {
-                mockArray.map(item => (
+                // mockArray.map(item => (
                     <div className={s.wrapperItem} key={item.id}>
                         <div className={s.iconDrag}>
                             <svg width="30px" height="30px" viewBox="0 0 25 25" fill="none">
@@ -52,8 +62,8 @@ const ListCompleted = ({mockArray,num}) => {
                         <input type="text"
                                className={item.completed ? `${s.itemCompleted}` : ''}
                                defaultValue={item.title}
-                            // value={changeTitle}
-                            // onChange={(e)=>changeHandler(e)}
+                            value={changeValue}
+                            onChange={(e)=>changeHandler(e)}
 
                         />
                         <button className={s.btnClose}
@@ -66,7 +76,7 @@ const ListCompleted = ({mockArray,num}) => {
                             </svg>
                         </button>
                     </div>
-                ))
+                // ))
             }
 
         </div>

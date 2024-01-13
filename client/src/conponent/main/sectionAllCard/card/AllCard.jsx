@@ -14,18 +14,20 @@ const AllCard = ({item}) => {
            <div>dateCreate: {item.dateCreate}</div>
            <div>isFavorite: {item.isFavorite ? 'true' : 'false'}</div>
            <div>panelChangeBGColor: {item.panelChangeBGColor ? 'true' : 'false'}</div>
-           <div>textareaCheckBox: {item.textareaCheckBox}</div>
+           <div>textareaBox: {item.textareaCheckBox}</div>
            <div>label: {item.label }</div>
-           {item.labelCheckBox.length>0 && <p >
+           <div>labelCheckBox:
+           {item.labelCheckBox.length>0 &&
 
                <ul>
                    {item.labelCheckBox.map(i=>(
                        <li key={i.id}>{i.title}</li>
                    ))}
                </ul>
-           </p>
+
 
            }
+           </div>
 
 
            <br/>

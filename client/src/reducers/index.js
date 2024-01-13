@@ -4,14 +4,18 @@ import searchSliceReducer from "../conponent/header/search/icons/searchSliceRedu
 import tilesSliceReducer from "../conponent/header/tile/tilesSliceReducer";
 import newCardSliceReducer from "../conponent/main/newCard/newCardSliceReducer";
 import listSliceReducer from "../conponent/main/newCard/list/listSliceReducer";
+import labelChangePopupSliceReducer from "../conponent/main/labelChangePopup/labelChangePopupSliceReducer";
+import getSliceReducer from "./getSliceReducer";
 
 
 const rootReducer=combineReducers({
+    getSlice:getSliceReducer,
     burgerSlice:burgerSliceReducer,
     searchSlice: searchSliceReducer,
     tilesSlice:tilesSliceReducer,
     newCardSlice: newCardSliceReducer,
-    listSlice:listSliceReducer
+    listSlice:listSliceReducer,
+    labelPopupSlice: labelChangePopupSliceReducer
 })
 
 export const store=configureStore({
