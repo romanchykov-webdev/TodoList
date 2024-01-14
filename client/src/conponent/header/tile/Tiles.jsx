@@ -12,9 +12,9 @@ const Tiles = () => {
     return (
         <div className={s.wrapperToggle}>
             {
-                toggle==='tiles'
+                toggle==='list'
                     ? <div className={s.wrapperTiles}
-                           onClick={() => dispatch(tilesToggleAction({toggle: 'list'}))}
+                           onClick={() => dispatch(tilesToggleAction({toggle: 'tiles'}))}
                     >
                         <span></span>
                         <span></span>
@@ -22,7 +22,7 @@ const Tiles = () => {
                         <span></span>
                     </div>
                     : <div className={s.wrapperList}
-                           onClick={() => dispatch(tilesToggleAction({toggle: 'tiles'}))}
+                           onClick={() => dispatch(tilesToggleAction({toggle: 'list'}))}
                     >
                         <span></span>
                         <span></span>

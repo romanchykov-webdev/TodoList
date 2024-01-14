@@ -8,11 +8,11 @@ export function getTodos() {
         try {
             // debugger
             // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
-            const response = await axios.get('http://localhost:5000/boards',{params:{_page:0,_limit: 1000}})
+            const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
                 // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
 
             dispatch(getTodosAction(response.data))
-            console.log('getTodos')
+            // console.log('getTodos')
         } catch (e) {
             alert(e.response.data.message)
         }

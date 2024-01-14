@@ -5,9 +5,14 @@ import {useSelector} from "react-redux";
 
 function App() {
     const isActiveLabelPopup=useSelector(state => state.labelPopupSlice.isActive)
+
+
+
+
+
   return (
     <div className="App">
-        {isActiveLabelPopup && <LabelChangePopup/>}
+        {isActiveLabelPopup && <LabelChangePopup />}
         <Header/>
         <Main/>
     </div>

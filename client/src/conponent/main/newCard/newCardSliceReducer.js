@@ -10,7 +10,9 @@ const newCardSliceReducer = createSlice({
         isList: true,
         isFavorite: false,
         listTemp: [],
-        textareaTemp: []
+        textareaTemp: [],
+        labelChangePopup: false,
+        labels: ["all"]
 
     },
     reducers: {
@@ -23,6 +25,10 @@ const newCardSliceReducer = createSlice({
             state.isActive = false;
             state.isTextarea = true;
             state.isList = true;
+            state.isFavorite = false;
+            state.listTemp = []
+            state.textareaTemp = []
+            state.labels = ["all"]
 
         },
         textareaAction(state) {
@@ -74,26 +80,38 @@ const newCardSliceReducer = createSlice({
         },
 
         createNewCardAction(state) {
-            state.listTemp=[]
-            state.textareaTemp=[]
+            state.listTemp = []
+            state.textareaTemp = []
+            state.labels = ["all"]
         },
-        changeListTempValueAction(state,action){
-            const {id,title}=action.payload
+        changeListTempValueAction(state, action) {
+            const {id, title} = action.payload
             // debugger
-            state.listTemp.map(item=>{
-                if(item.id===id){
-                    item.title=title
+            state.listTemp.map(item => {
+                if (item.id === id) {
+                    item.title = title
                 }
             })
         },
-        changeTextareaTempValueAction(state,action){
+        changeTextareaTempValueAction(state, action) {
             // const {id,title}=action.payload
             // debugger
-            state.textareaTemp=action.payload
+            state.textareaTemp = action.payload
+        },
+        labelsAddAction(state, action) {
+            const label = action.payload;
+            // debugger
+            if (!state.labels.includes(label)) {
+                // Add the label if it doesn't exist
+               state.labels = [...state.labels, label];
 
-
+            }
+        },
+        labelsRemoveAction(state, action) {
+            const label = action.payload;
+            // debugger
+            state.labels=state.labels.filter(item=>item!==label)
         }
-
 
 
     }
@@ -113,4 +131,6 @@ export const {
     createNewCardAction,
     changeListTempValueAction,
     changeTextareaTempValueAction,
+    labelsAddAction,
+    labelsRemoveAction,
 } = newCardSliceReducer.actions

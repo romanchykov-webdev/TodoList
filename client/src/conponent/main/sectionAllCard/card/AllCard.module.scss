@@ -1,0 +1,82 @@
+@import "../../../../../util/colors";
+
+.wrapperCard {
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  //border:1px solid black;
+  background-color: $colorWhite;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &:hover {
+    box-shadow: 1px 1px 3px rgba($colorGray, 0.5);
+  }
+
+  .header {
+    display: flex;
+    height: 24px;
+
+    .headerTitle {
+      input {
+        width: 100%;
+        background-color: transparent;
+        border-bottom: 1px solid rgba($colorGray, 0.2);
+      }
+    }
+
+    .headerIcons {
+      display: flex;
+      align-items: center;
+      //height: 24px;
+
+      .favorites {
+        width: 24px;
+      }
+
+      .bookmark {
+        position: relative;
+        width: 24px;
+
+
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+
+        .quantityLabels {
+          position: absolute;
+          top: 50%;
+          left: 35%;
+          font-size: 0.8em;
+          line-height: 0;
+        }
+      }
+    }
+  }
+
+  .footerCard {
+    .blockLabel {
+      display: flex;
+      overflow-x: scroll;
+      width: 100%;
+      &::-webkit-scrollbar {
+        display: none;}
+      .labelCard {
+        margin-left: 5px;
+        margin-right: 5px;
+        padding: 2px 5px;
+        border:1px solid $colorGray;
+        border-radius: 12px;
+      }
+    }
+  }
+
+  .blockHidden {
+    display: none;
+  }
+}

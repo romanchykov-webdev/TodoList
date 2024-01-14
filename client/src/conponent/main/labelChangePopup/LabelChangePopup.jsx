@@ -1,27 +1,59 @@
 import React, {useState} from 'react';
 import s from './labelChangePopup.module.scss'
-import {useDispatch} from "react-redux";
-import {labelChangePopupAction} from "./labelChangePopupSliceReducer";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {labelTogglePopupAction} from "./labelChangePopupSliceReducer";
+import {labelsAddAction, labelsRemoveAction} from "../newCard/newCardSliceReducer";
 
 
 const LabelChangePopup = () => {
 
     const dispatch = useDispatch()
 
-    const [newLabel, setNewLabel] = useState()
-    const [checkbox, setCheckbox] = useState()
-    const [label, setLabel] = useState('asfaf')
 
-    const [allLabels,setAllLabels]=useState()
 
-    const getLabels= async ()=>{
-        const response=await axios.get()
+    // uniqueLabels
+    const todos=useSelector(state => state.getSlice.getTodos)
+
+    const uniqueLabels = new Set();
+
+    todos.forEach(item => {
+        // Check if item.label is an array before iterating
+        if (Array.isArray(item.label)) {
+            item.label.forEach(label => {
+                if (label !== 'all') {
+                    uniqueLabels.add(label);
+                }
+            });
+        }
+    });
+
+// Convert the Set back to an array if needed
+    const uniqueLabelsArray = Array.from(uniqueLabels);
+
+    console.log(uniqueLabelsArray);
+
+    // uniqueLabels
+
+    const cLabel = useSelector(state => state.newCardSlice.labels)
+
+    const createLabel=cLabel.filter(item=>item!=='all')
+    // console.log(uniqueLabels)
+    // console.log(createLabel)
+
+
+    const [newLabel, setNewLabel] = useState('')
+
+
+    function handlerAddLAbel() {
+        dispatch(labelsAddAction(newLabel))
+        setNewLabel('')
+    }
+
+    function handlerRemoveLabel(item) {
+        dispatch(labelsRemoveAction(item))
     }
 
     return (
-
-
 
 
         <div className={s.wrapperPopupLabel}
@@ -30,9 +62,11 @@ const LabelChangePopup = () => {
             <div className={s.wrapper}>
                 <div className={s.headerTitle}>
                     Labels
-                    <button onClick={() => dispatch(labelChangePopupAction())}>
-                        <svg viewBox="0 0 50 50" width="40px" height="40px"><path
-                            d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"/></svg>
+                    <button onClick={() => dispatch(labelTogglePopupAction())}>
+                        <svg viewBox="0 0 50 50" width="40px" height="40px">
+                            <path
+                                d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"/>
+                        </svg>
                     </button>
                 </div>
                 <div className={s.header}>
@@ -41,17 +75,88 @@ const LabelChangePopup = () => {
                            onChange={(e) => setNewLabel(e.target.value)}
                            placeholder={"new label"}
                     />
-                    <button>add</button>
+                    <button
+                        onClick={handlerAddLAbel}
+                    >add
+                    </button>
                 </div>
-                <div className={s.wrapperLabels}>
-                    <label htmlFor="checkbox">
-                        <input type="checkbox"
-                               id={'checkbox'}
-                               value={checkbox}
-                        />
-                        {label}
-                    </label>
-                </div>
+                {
+                    // uniqueLabels.map(item => (
+                    uniqueLabelsArray.map(item => (
+
+                        <div className={s.wrapperLabels} key={item.id}>
+
+                            {
+                                createLabel.includes(item)
+                                    ? <label htmlFor={item}
+                                             onClick={() => dispatch(labelsRemoveAction(item))}
+                                    >
+                                    <span className={s.iconActive}>
+                                                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"><g
+                                                    id="Interface / Checkbox_Check"><path id="Vector"
+                                                                                          d="M8 12L11 15L16 9M4 16.8002V7.2002C4 6.08009 4 5.51962 4.21799 5.0918C4.40973 4.71547 4.71547 4.40973 5.0918 4.21799C5.51962 4 6.08009 4 7.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H7.19691C6.07899 20 5.5192 20 5.0918 19.7822C4.71547 19.5905 4.40973 19.2842 4.21799 18.9079C4 18.4801 4 17.9203 4 16.8002Z"
+                                                                                          stroke="#000000"
+                                                                                          strokeWidth="2"
+                                                                                          strokeLinecap="round"
+                                                                                          strokeLinejoin="round"></path></g></svg>
+                                            </span>
+
+                                        {item}
+                                    </label>
+
+                                    : <label htmlFor={item}
+                                             onClick={() => dispatch(labelsAddAction(item))}
+                                    >
+
+                                        <span className={s.iconNoActiv}>
+                                                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"><path
+                                                    fillRule="evenodd" clipRule="evenodd"
+                                                    d="M6 5C5.44772 5 5 5.44772 5 6V13V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V13V6C19 5.44772 18.5523 5 18 5H6ZM3 6C3 4.34315 4.34315 3 6 3H18C19.6569 3 21 4.34315 21 6V13V18C21 19.6569 19.6569 21 18 21H6C4.34315 21 3 19.6569 3 18V13V6Z"
+                                                    fill="#000000"></path></svg>
+                                            </span>
+
+                                        {item}
+                                    </label>
+
+                            }
+
+
+                        </div>
+
+                    ))
+                }
+             {/*<span>add label</span>*/}
+                {
+                    createLabel.map(item => (
+                        <>
+                            {
+                                !uniqueLabelsArray.includes(item )
+                                    ?
+                                    <div className={s.wrapperLabels} key={item.id}>
+                                        <label htmlFor={item}
+                                               onClick={() => dispatch(labelsRemoveAction(item))}
+                                        >
+                                            <span className={s.iconActive}>
+                                                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"><g
+                                                        id="Interface / Checkbox_Check"><path id="Vector"
+                                                                                              d="M8 12L11 15L16 9M4 16.8002V7.2002C4 6.08009 4 5.51962 4.21799 5.0918C4.40973 4.71547 4.71547 4.40973 5.0918 4.21799C5.51962 4 6.08009 4 7.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H7.19691C6.07899 20 5.5192 20 5.0918 19.7822C4.71547 19.5905 4.40973 19.2842 4.21799 18.9079C4 18.4801 4 17.9203 4 16.8002Z"
+                                                                                              stroke="#000000"
+                                                                                              strokeWidth="2"
+                                                                                              strokeLinecap="round"
+                                                                                              strokeLinejoin="round"></path></g></svg>
+                                                </span>
+                                            {item}
+                                        </label>
+
+
+                                    </div>
+                                    : null
+                            }
+                        </>
+                    ))
+                }
+
+
             </div>
         </div>
     );

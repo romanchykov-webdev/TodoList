@@ -6,9 +6,7 @@ const labelChangePopupSliceReducer = createSlice({
     initialState: {
         isActive: false
     }, reducers: {
-        labelChangePopupAction(state, action={}) {
-            const id = action.payload
-            // debugger
+        labelTogglePopupAction(state) {
             state.isActive = !state.isActive
         }
     }
@@ -16,5 +14,5 @@ const labelChangePopupSliceReducer = createSlice({
 
 export default labelChangePopupSliceReducer.reducer
 export const {
-    labelChangePopupAction,
+    labelTogglePopupAction,
 } = labelChangePopupSliceReducer.actions

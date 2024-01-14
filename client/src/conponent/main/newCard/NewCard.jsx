@@ -1,13 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import s from './NewCard.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {createNewCardAction, isFavoriteToggleAction, listAction, newCardHiddenAction} from "./newCardSliceReducer";
+import {
+    createNewCardAction,
+    isFavoriteToggleAction,
+    labelPopupAction,
+    listAction,
+    newCardHiddenAction
+} from "./newCardSliceReducer";
 import Textarea from "./textarea/Textarea";
 import List from "./list/List";
 import {v4} from "uuid";
 import axios from "axios";
-import {labelChangePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
-import {postTodos} from "../../../actions/toos";
+
+import {postTodos} from "../../../actions/todos";
+import {labelTogglePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
 
 
 const NewCard = () => {
@@ -17,6 +24,7 @@ const NewCard = () => {
     const isList = useSelector(state => state.newCardSlice.isList)
     const isFavorite = useSelector(state => state.newCardSlice.isFavorite)
     const id = useSelector(state => state.newCardSlice.id)
+    const labels = useSelector(state => state.newCardSlice.labels)
 
 
     const listTemp = useSelector(state => state.newCardSlice.listTemp)
@@ -41,7 +49,7 @@ const NewCard = () => {
 
         const newCard = {
             "id": v4(),
-            "label": ["all"],
+            "label": labels.length===0 ? 'all' : labels,
             "title": headerInput.length === 0 ? 'new card' : headerInput,
             "color": "white",
             "panelChangeBGColor": false,
@@ -70,7 +78,7 @@ const NewCard = () => {
 
         dispatch(listAction())
     }
-
+console.log()
     return (
         <div className={s.wrapperNewCard}>
             <div className={s.wrapper}>
@@ -83,7 +91,7 @@ const NewCard = () => {
 
                         <div className={s.wrapperIcons}>
                             <div className={s.bookmark}
-                                 onClick={() => dispatch(labelChangePopupAction(id))}
+                                 onClick={() => dispatch(labelTogglePopupAction())}
                             >
 
                                 <svg x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">

@@ -52,3 +52,17 @@ input,textarea{
     outline: none;
   }
 }
+//
+section{
+  padding: 20px;
+}
+.wrapperTiles{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.wrapperList{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}

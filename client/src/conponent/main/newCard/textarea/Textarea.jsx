@@ -4,18 +4,18 @@ import {changeTextareaTempValueAction, newCardShowAction, textareaAction} from "
 import {useDispatch} from "react-redux";
 
 
-const Textarea = ({mainTextarea,setMainTextarea ,textareaHeight,setTextareaHeight}) => {
+const Textarea = ({mainTextarea={},setMainTextarea={} ,textareaHeight={},setTextareaHeight={}}) => {
     const dispatch = useDispatch()
 
     const textareaRef = useRef(null);
     // const [text, setText] = useState('');
     // const [textareaHeight, setTextareaHeight] = useState('auto');
 
-console.log(mainTextarea.length)
-    if(mainTextarea.length===0){
-        console.log("mainTextarea.length ==== 0")
-        // setTextareaHeight(0)
-    }
+// console.log(mainTextarea.length)
+//     if(mainTextarea.length===0){
+//         console.log("mainTextarea.length ==== 0")
+//         // setTextareaHeight(0)
+//     }
 
     const handlerTextareaChange = (e) => {
         setMainTextarea(e.target.value)

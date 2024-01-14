@@ -4,7 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const tilesSliceReducer = createSlice({
     name: "tiles",
     initialState: {
-        toggleTiles: 'list'
+        toggleTiles: 'tiles'
     },
     reducers: {
         tilesToggleAction(state, action) {

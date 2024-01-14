@@ -6,10 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {listTempPushAction} from "../newCardSliceReducer";
 
 
-const List = () => {
+const List = ({item={}}) => {
+
+    console.log(item)
+
     const dispatch = useDispatch()
 
     const listArray = useSelector(state => state.newCardSlice.listTemp)
+
 
     const [createNewItem, setCreateNewItem] = useState('')
     const [mockArray, setMockArray] = useState(listArray)
