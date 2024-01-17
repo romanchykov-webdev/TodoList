@@ -6,9 +6,10 @@ import {
     listToggleCompletedAction,
     removeListTempItemAction
 } from "../../newCardSliceReducer";
+import {putTodos} from "../../../../../actions/todos";
 
 
-const ListCompleted = ({mockArray,num,item}) => {
+const ListCompleted = ({item, itemTodo}) => {
     const dispatch=useDispatch()
 
     const [changeValue,setChangeValue]=useState()
@@ -17,10 +18,69 @@ const ListCompleted = ({mockArray,num,item}) => {
         console.log("change item")
     }, [item.title]);
 
+    const [writeTimeout,setWriteTimeout]=useState(false)
+
     const changeHandler = (e) => {
         setChangeValue(e.target.value);
         dispatch(changeListTempValueAction({ id: item.id, title: e.target.value }));
+
+
+        // console.log(itemTodo)
+        // console.log(item.id)
+        const newCard = {
+            ...itemTodo,
+            labelCheckBox: itemTodo.labelCheckBox.map(i => {
+                if (i.id === item.id) {
+                    return { ...i, title: e.target.value };
+                }
+                return i;
+            })
+        };
+        // console.log(newCard)
+
+        if(writeTimeout !== false){
+            clearTimeout(writeTimeout)
+        }
+        setWriteTimeout(
+            setTimeout((value)=>{
+                dispatch(putTodos({idItem:itemTodo.id,newCard:newCard}))
+                console.log("putTodos")
+            },1000,e.target.value)
+        )
+
+
     };
+
+    function handlerRemoveItem(id) {
+        dispatch(removeListTempItemAction(id))
+        // console.log(id)
+
+        const newCard={
+            ...itemTodo,
+            labelCheckBox:itemTodo.labelCheckBox.filter(i=>i.id!==id)
+        }
+        // console.log(newCard)
+        console.log("handlerRemoveItem")
+        dispatch(putTodos({idItem:itemTodo.id,newCard:newCard}))
+    }
+
+    function handlerCompleted(item) {
+        dispatch(listToggleCompletedAction(item.id))
+        // console.log(item)
+        // console.log(itemTodo)
+        const newCard={
+            ...itemTodo,
+            labelCheckBox:itemTodo.labelCheckBox.map(i=>{
+                if(i.id===item.id){
+                    return {...i, completed: !i.completed}
+                }
+                return i
+            })
+        }
+        // console.log(newCard)
+        console.log("handlerCompleted")
+        dispatch(putTodos({idItem:itemTodo.id,newCard:newCard}))
+    }
 
     return (
         <div className={s.wrapperList}>
@@ -40,7 +100,7 @@ const ListCompleted = ({mockArray,num,item}) => {
                             {
                                 item.completed
                                     ? <span className={s.iCompleted}
-                                            onClick={()=>dispatch(listToggleCompletedAction(item.id))}
+                                            onClick={()=>handlerCompleted(item)}
                                     >
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" >
                                         <g id="Interface / Checkbox_Check">
@@ -49,7 +109,7 @@ const ListCompleted = ({mockArray,num,item}) => {
                                         </svg>
                                       </span>
                                     : <span className={s.iNonCompleted}
-                                            onClick={()=>dispatch(listToggleCompletedAction(item.id))}
+                                            onClick={()=>handlerCompleted(item)}
                                     >
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" >
                                         <path fillRule="evenodd" clipRule="evenodd" d="M6 5C5.44772 5 5 5.44772 5 6V13V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V13V6C19 5.44772 18.5523 5 18 5H6ZM3 6C3 4.34315 4.34315 3 6 3H18C19.6569 3 21 4.34315 21 6V13V18C21 19.6569 19.6569 21 18 21H6C4.34315 21 3 19.6569 3 18V13V6Z" fill="#000000"/>
@@ -67,7 +127,8 @@ const ListCompleted = ({mockArray,num,item}) => {
 
                         />
                         <button className={s.btnClose}
-                            onClick={()=>dispatch(removeListTempItemAction(item.id))}
+
+                            onClick={()=>handlerRemoveItem(item.id)}
                         >
                             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
                                 <path

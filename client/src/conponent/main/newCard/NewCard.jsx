@@ -4,14 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     createNewCardAction,
     isFavoriteToggleAction,
-    labelPopupAction,
     listAction,
     newCardHiddenAction
 } from "./newCardSliceReducer";
 import Textarea from "./textarea/Textarea";
 import List from "./list/List";
 import {v4} from "uuid";
-import axios from "axios";
 
 import {postTodos} from "../../../actions/todos";
 import {labelTogglePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
@@ -91,7 +89,7 @@ console.log()
 
                         <div className={s.wrapperIcons}>
                             <div className={s.bookmark}
-                                 onClick={() => dispatch(labelTogglePopupAction())}
+                                 onClick={() => dispatch(labelTogglePopupAction({id: 'new',labels:labels}))}
                             >
 
                                 <svg x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
@@ -147,7 +145,7 @@ console.log()
                         <button
                             onClick={() => createHandles()}
                         ><span>Create new card</span></button>
-
+                        {/*<Palette id={'new'} color={"#fff"}/>*/}
                         <button
                             onClick={() => closeHandler()}
                         ><span>close</span></button>

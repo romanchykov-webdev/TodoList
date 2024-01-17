@@ -7,18 +7,33 @@
       "author": "typicode"
     }
   ],
+  "colorsPalette": [
+    "#fff",
+    "#faafa8",
+    "#f39f76",
+    "#fff8b8",
+    "#e2f6d3",
+    "#b4ddd3",
+    "#efeff1",
+    "#aeccdc",
+    "#d3bfdb",
+    "#f6e2dd",
+    "#e9e3d4",
+    "#e9e3d5"
+  ],
   "boards": [
     {
       "id": "f5f3489f-a821-4bb8-9e7a-8584dc656560",
       "label": [
         "all",
-        "ber",
-        "2"
+        "2",
+        "4",
+        "ergerergert"
       ],
       "title": "new card",
-      "color": "red",
+      "color": "#fff",
       "panelChangeBGColor": false,
-      "isFavorite": true,
+      "isFavorite": false,
       "labelCheckBox": [
         {
           "id": "12323",
@@ -45,52 +60,171 @@
       "dateCreate": "2024-01-13T12:29:05.801Z"
     },
     {
-      "id": "67d3e43c-f95b-4780-9bbc-dd9ca83b8219",
-      "label": [
-        "all",
-        "ergerergert"
-      ],
-      "title": "new card",
-      "color": "green",
-      "panelChangeBGColor": false,
-      "isFavorite": false,
-      "labelCheckBox": [],
-      "textareaCheckBox": [],
-      "dateCreate": "2024-01-14T12:06:38.213Z"
-    },
-    {
-      "id": "7a9ed90c-64d3-429d-91fb-1f4358e0f27b",
+      "id": "ce1bc733-4050-43f1-a029-e0af97ca2601",
       "label": [
         "all"
       ],
       "title": "new card",
       "color": "white",
       "panelChangeBGColor": false,
-      "isFavorite": true,
+      "isFavorite": false,
       "labelCheckBox": [],
-      "textareaCheckBox": [],
-      "dateCreate": "2024-01-14T12:31:33.713Z"
+      "textareaCheckBox": "sdfsfsdfsdf",
+      "dateCreate": "2024-01-15T18:04:58.715Z"
     },
     {
-      "id": "e3893c58-5a51-48a9-b02b-d4597fb84595",
+      "id": "90549a0a-5ee0-4cf0-8405-7e17fccedff3",
       "label": [
         "all",
-        "ber",
         "2",
-        "ergerergert",
-        "1",
-        "3",
-        "4",
-        "5",
-        "6"
+        "111"
       ],
-      "title": "textErea",
+      "title": "new card",
+      "color": "#d3bfdb",
+      "panelChangeBGColor": false,
+      "isFavorite": true,
+      "labelCheckBox": [
+        {
+          "id": "8aa4c6da-897b-4af2-a35e-eacfc3a74274",
+          "title": "gdferere",
+          "completed": false
+        },
+        {
+          "id": "e22c91e7-c940-4994-ada6-637edc5a1f3a",
+          "title": "gfhfghf",
+          "completed": false
+        },
+        {
+          "id": "74b904e1-f7e1-40ba-8169-420ae2062cf1",
+          "title": "yrty",
+          "completed": true
+        },
+        {
+          "id": "756cb952-471d-49d7-8753-c7b10b1fd23f",
+          "title": "ytrty",
+          "completed": true
+        },
+        {
+          "id": "2c866156-bc52-4e7f-af3a-2ca764515b0b",
+          "title": "rtyrty",
+          "completed": false
+        },
+        {
+          "id": "42748136-72b1-427c-9c38-df2cb732bbd6",
+          "title": "fdgfggdfgf",
+          "completed": false
+        },
+        {
+          "id": "64b3e258-86e8-4c81-9a8f-8d9f736ce4d6",
+          "title": "dfgggfgfgfdgf",
+          "completed": false
+        }
+      ],
+      "textareaCheckBox": [],
+      "dateCreate": "2024-01-15T18:06:11.568Z"
+    },
+    {
+      "id": "4e91944e-67f2-4bd3-a423-41b7d99783fd",
+      "label": [
+        "all",
+        "2",
+        "4",
+        "ergerergert",
+        "111"
+      ],
+      "title": "11111111",
+      "color": "#f39f76",
+      "panelChangeBGColor": false,
+      "isFavorite": true,
+      "labelCheckBox": [
+        {
+          "id": "34a3cb22-5bc6-4822-a307-2a30eeaa4edb",
+          "title": "sddsfd",
+          "completed": true
+        },
+        {
+          "id": "03b8a937-7beb-41cd-bd58-75850e1a44f7",
+          "title": "ol;uiol",
+          "completed": true
+        },
+        {
+          "id": "b7236dc9-3353-4f2c-bab1-6d39c8d46231",
+          "title": "uiliul",
+          "completed": false
+        },
+        {
+          "id": "cb8c5ebc-4ef7-4d21-b169-f74893ffc2b1",
+          "title": "fgdfgdfgdfg",
+          "completed": false
+        },
+        {
+          "id": "1aed00c5-f35c-47a2-9b3f-e1873b50a2e0",
+          "title": "fgfdgdfgdf",
+          "completed": false
+        }
+      ],
+      "textareaCheckBox": [],
+      "dateCreate": "2024-01-15T20:48:21.273Z"
+    },
+    {
+      "id": "7f4fafa7-8362-4f0f-b125-08be4ed44b61",
+      "label": [
+        "all"
+      ],
+      "title": "tetetet",
+      "color": "white",
+      "panelChangeBGColor": false,
+      "isFavorite": true,
+      "labelCheckBox": [
+        {
+          "id": "3e6088ac-cd38-435a-a4e8-b97d89ad2e48",
+          "title": "luil",
+          "completed": false
+        },
+        {
+          "id": "267a3bf9-7886-4dc9-b300-e702dd1f1715",
+          "title": "iululu",
+          "completed": false
+        },
+        {
+          "id": "86b21856-2d86-41b6-b7f6-36373fe5f29f",
+          "title": "uiluil",
+          "completed": false
+        },
+        {
+          "id": "ba2e0b73-89be-4da2-b519-306431629e8f",
+          "title": "uilil",
+          "completed": false
+        }
+      ],
+      "textareaCheckBox": [],
+      "dateCreate": "2024-01-16T15:22:00.077Z"
+    },
+    {
+      "id": "5d256241-b91c-4cfb-a411-4f0e33dc2d4b",
+      "label": [
+        "all"
+      ],
+      "title": "121232",
+      "color": "white",
+      "panelChangeBGColor": false,
+      "isFavorite": false,
+      "labelCheckBox": [],
+      "textareaCheckBox": [],
+      "dateCreate": "2024-01-16T16:08:11.551Z"
+    },
+    {
+      "id": "9117bbbf-7666-4f16-8e66-fc047bc82783",
+      "label": [
+        "all"
+      ],
+      "title": "2121",
       "color": "white",
       "panelChangeBGColor": false,
       "isFavorite": true,
       "labelCheckBox": [],
-      "textareaCheckBox": "text erioadssvdvsdcvsd\ncvsd\n\nsdv\nsv\n\nsvsdvsskjdbndbndklfbnlkdfnblkfdnbldfnbldfknbfd\ndbdbkldfbndlkfnbldfnbdfnbdlfbndf\ndf\ndfbdf\nbdf\nbdf\nb\ndf\nb\n",
-      "dateCreate": "2024-01-14T13:50:01.562Z"
+      "textareaCheckBox": [],
+      "dateCreate": "2024-01-16T16:08:20.320Z"
     }
   ]
 }

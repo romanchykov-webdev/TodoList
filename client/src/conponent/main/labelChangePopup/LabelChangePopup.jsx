@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import s from './labelChangePopup.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {labelTogglePopupAction} from "./labelChangePopupSliceReducer";
+import {addLabelAction,removeLabelAction, labelTogglePopupAction} from "./labelChangePopupSliceReducer";
 import {labelsAddAction, labelsRemoveAction} from "../newCard/newCardSliceReducer";
+import {bookmarkAddAction, bookmarkRemoveAction} from "../../../reducers/getSliceReducer";
+import {postTodos, putTodos} from "../../../actions/todos";
+import axios from "axios";
 
 
 const LabelChangePopup = () => {
@@ -13,6 +16,10 @@ const LabelChangePopup = () => {
 
     // uniqueLabels
     const todos=useSelector(state => state.getSlice.getTodos)
+
+    const idItem=useSelector(state => state.labelPopupSlice.id)
+    console.log(idItem)
+
 
     const uniqueLabels = new Set();
 
@@ -33,10 +40,16 @@ const LabelChangePopup = () => {
     console.log(uniqueLabelsArray);
 
     // uniqueLabels
+    const labelItem=useSelector(state => state.labelPopupSlice.labels)
 
     const cLabel = useSelector(state => state.newCardSlice.labels)
+    let createLabel=[]
+    if(idItem==='new'){
+        createLabel=cLabel.filter(item=>item!=='all')
+    }else{
+        createLabel=labelItem.filter(item=>item!=='all')
 
-    const createLabel=cLabel.filter(item=>item!=='all')
+    }
     // console.log(uniqueLabels)
     // console.log(createLabel)
 
@@ -45,13 +58,54 @@ const LabelChangePopup = () => {
 
 
     function handlerAddLAbel() {
-        dispatch(labelsAddAction(newLabel))
+        console.log(idItem)
+        if(idItem==='new'){
+            dispatch(labelsAddAction(newLabel))
+        }else{
+            dispatch(bookmarkAddAction({id:idItem,label:newLabel}))
+            dispatch(addLabelAction(newLabel))
+        }
         setNewLabel('')
     }
 
     function handlerRemoveLabel(item) {
-        dispatch(labelsRemoveAction(item))
+        console.log("handlerRemoveLabel")
+        if(idItem==='new'){
+
+            dispatch(labelsRemoveAction(item))
+        }else{
+            dispatch(bookmarkRemoveAction({id:idItem,label:item}))
+            dispatch(removeLabelAction(item))
+        }
     }
+
+    function handlerAddLabel(item) {
+        if(idItem==='new'){
+
+            dispatch(labelsAddAction(item))
+        }else{
+            dispatch(bookmarkAddAction({id:idItem,label:item}))
+            dispatch(addLabelAction(item))
+        }
+
+    }
+
+    async function handlerClose(idItem) {
+        let newCard = {};
+        const foundItem = todos.find(item => item.id === idItem);
+
+        if (foundItem) {
+            newCard = { ...foundItem }; // copy  item
+            console.log(newCard.id);
+
+
+                dispatch(putTodos({idItem, newCard}))
+
+        }
+        dispatch(labelTogglePopupAction(idItem))
+
+    }
+
 
     return (
 
@@ -62,7 +116,7 @@ const LabelChangePopup = () => {
             <div className={s.wrapper}>
                 <div className={s.headerTitle}>
                     Labels
-                    <button onClick={() => dispatch(labelTogglePopupAction())}>
+                    <button onClick={() => handlerClose(idItem)}>
                         <svg viewBox="0 0 50 50" width="40px" height="40px">
                             <path
                                 d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"/>
@@ -89,7 +143,7 @@ const LabelChangePopup = () => {
                             {
                                 createLabel.includes(item)
                                     ? <label htmlFor={item}
-                                             onClick={() => dispatch(labelsRemoveAction(item))}
+                                             onClick={() =>handlerRemoveLabel(item)}
                                     >
                                     <span className={s.iconActive}>
                                                 <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"><g
@@ -105,7 +159,7 @@ const LabelChangePopup = () => {
                                     </label>
 
                                     : <label htmlFor={item}
-                                             onClick={() => dispatch(labelsAddAction(item))}
+                                             onClick={() => handlerAddLabel(item)}
                                     >
 
                                         <span className={s.iconNoActiv}>

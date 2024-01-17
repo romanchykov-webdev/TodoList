@@ -4,15 +4,23 @@ import {v4} from "uuid";
 import ListCompleted from "./listCompleted/ListCompleted";
 import {useDispatch, useSelector} from "react-redux";
 import {listTempPushAction} from "../newCardSliceReducer";
+import {putTodos} from "../../../../actions/todos";
 
 
-const List = ({item={}}) => {
+const List = ({itemTodo=[]}) => {
 
-    console.log(item)
+
 
     const dispatch = useDispatch()
 
-    const listArray = useSelector(state => state.newCardSlice.listTemp)
+     let   listArray = useSelector(state => state.newCardSlice.listTemp);
+
+if(Object.keys(itemTodo).length > 0){
+    listArray=itemTodo.labelCheckBox
+}
+
+
+    // console.log(listArray)
 
 
     const [createNewItem, setCreateNewItem] = useState('')
@@ -30,17 +38,32 @@ const List = ({item={}}) => {
 
     // crete new item onClick
     const newItemHandler = () => {
-        if (createNewItem.length > 0) {
-            const newItem = {
-                id: v4(),
-                title: createNewItem,
-                completed: false,
+
+            if (createNewItem.length > 0) {
+                const newItem = {
+                    id: v4(),
+                    title: createNewItem,
+                    completed: false,
+                }
+                // setMockArray(prevMockArray => [...prevMockArray, newItem])
+                // console.log(mockArray)
+                if(Object.keys(itemTodo).length > 0){
+                    console.log("itemTodo.id"+itemTodo.id)
+                    console.log(itemTodo.labelCheckBox)
+
+                    const newCard= {
+                        ...itemTodo,
+                        labelCheckBox: [...itemTodo.labelCheckBox, newItem]
+                    }
+                    console.log(newCard)
+                    dispatch(putTodos({idItem:itemTodo.id,newCard:newCard}))
+                }else{
+                    dispatch(listTempPushAction({newItem}))
+                }
+                setCreateNewItem('')
             }
-            // setMockArray(prevMockArray => [...prevMockArray, newItem])
-            // console.log(mockArray)
-            dispatch(listTempPushAction({newItem}))
-            setCreateNewItem('')
-        }
+
+        // console.log(itemTodo)
 
     }
     // crete new item onClick
@@ -62,11 +85,12 @@ const List = ({item={}}) => {
         <div className={s.wrapperList}>
             {
                 // noCompleted.length>0 && <ListCompleted mockArray={noCompleted}/>
-                noCompleted.length > 0 && noCompleted.map(item => (<ListCompleted item={item}/>))
+                noCompleted.length > 0 && noCompleted.map(item => (<ListCompleted item={item} itemTodo={itemTodo}/>))
             }
 
 
             <div className={s.createNew}>
+
                 <span
                     onClick={newItemHandler}
 
@@ -88,7 +112,7 @@ const List = ({item={}}) => {
 
 
                 // completed.length>0 && <ListCompleted mockArray={completed} num={completed.length}/>
-                completed.length > 0 && completed.map(item => (<ListCompleted item={item}/>))
+                completed.length > 0 && completed.map(item => (<ListCompleted item={item} itemTodo={itemTodo}/>))
             }
 
         </div>

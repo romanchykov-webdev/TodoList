@@ -56,10 +56,15 @@ input,textarea{
 section{
   padding: 20px;
 }
+input{
+  background-color: transparent;
+}
 .wrapperTiles{
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 .wrapperList{
   display: flex;

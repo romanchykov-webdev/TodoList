@@ -4,16 +4,24 @@ import Nav from "./nav/Nav";
 import NewCard from "./newCard/NewCard";
 import SectionAllCard from "./sectionAllCard/SectionAllCard";
 import SectionFavorite from "./sectionFavorite/sectionFavorite";
-import {getTodos} from "../../actions/todos";
+import {getColorsPalette, getTodos} from "../../actions/todos";
 import {useDispatch, useSelector} from "react-redux";
 
 const Main = () => {
     const dispatch=useDispatch()
 
+    // get color palette
+    useEffect(()=>{
+        dispatch(getColorsPalette())
+    },[dispatch])
+    // get color palette
+
+    // get all todos
     const [todos,setTodos]=useState([])
     useEffect(()=>{
         dispatch(getTodos())
     },[dispatch])
+    // get all todos
 
     const gTodos=useSelector(state => state.getSlice.getTodos)
 
