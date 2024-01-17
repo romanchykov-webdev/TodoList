@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import s from './NewCard.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {
     createNewCardAction,
     isFavoriteToggleAction,
     listAction,
-    newCardHiddenAction
+    newCardHiddenAction, newChangeColorBackgroundAction
 } from "./newCardSliceReducer";
 import Textarea from "./textarea/Textarea";
 import List from "./list/List";
@@ -13,6 +13,8 @@ import {v4} from "uuid";
 
 import {postTodos} from "../../../actions/todos";
 import {labelTogglePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
+import Palette from "../../palitra/Palette";
+import HeaderIcons from "../../headerIcons/HeaderIcons";
 
 
 const NewCard = () => {
@@ -23,6 +25,8 @@ const NewCard = () => {
     const isFavorite = useSelector(state => state.newCardSlice.isFavorite)
     const id = useSelector(state => state.newCardSlice.id)
     const labels = useSelector(state => state.newCardSlice.labels)
+    const colorBackground = useSelector(state => state.newCardSlice.color)
+
 
 
     const listTemp = useSelector(state => state.newCardSlice.listTemp)
@@ -37,6 +41,7 @@ const NewCard = () => {
     const [textareaHeight, setTextareaHeight] = useState('auto');
     function closeHandler() {
         dispatch(newCardHiddenAction())
+        dispatch(newChangeColorBackgroundAction('#fff'))
         setHeaderInput('')
         setMainTextarea('')
         setTextareaHeight('auto')
@@ -49,7 +54,7 @@ const NewCard = () => {
             "id": v4(),
             "label": labels.length===0 ? 'all' : labels,
             "title": headerInput.length === 0 ? 'new card' : headerInput,
-            "color": "white",
+            "color": colorBackground,
             "panelChangeBGColor": false,
             "isFavorite": isFavorite,
             "labelCheckBox": listTemp,
@@ -68,6 +73,7 @@ const NewCard = () => {
         setHeaderInput('')
         setMainTextarea('')
         setTextareaHeight('auto')
+        dispatch(newChangeColorBackgroundAction('#fff'))
 
     }
 
@@ -79,7 +85,9 @@ const NewCard = () => {
 console.log()
     return (
         <div className={s.wrapperNewCard}>
-            <div className={s.wrapper}>
+            <div className={s.wrapper}
+                style={{backgroundColor:`${colorBackground}`}}
+            >
                 {
                     isActive && <div className={s.wrapperHeader}>
                         <input type="text"
@@ -106,6 +114,10 @@ console.log()
                                         fill={isFavorite ? "gold" : "black"}
                                         d="M17 4v7l2 3v2h-6v5l-1 1-1-1v-5H5v-2l2-3V4c0-1.1.9-2 2-2h6c1.11 0 2 .89 2 2zM9 4v7.75L7.5 14h9L15 11.75V4H9z"/>
                                 </svg>
+                            </div>
+
+                            <div className={s.palette}>
+                                <Palette id={id} color={colorBackground} />
                             </div>
                         </div>
 

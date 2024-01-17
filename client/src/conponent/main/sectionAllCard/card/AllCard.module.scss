@@ -3,9 +3,11 @@
 .wrapperCard {
   cursor: pointer;
   //width: calc(33% - 20px);
-  width: 100%;
-  //height: 300px;
-  height: 500px;
+  flex: 0 0 calc(33% - 20px);
+  //flex: 0 0 calc(50% - 20px);
+  //width: 100%;
+  height: 300px;
+  //height: 500px;
   padding: 10px;
   border-radius: 12px;
   overflow: hidden;
@@ -24,6 +26,8 @@
 
   .header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 24px;
 
     .headerTitle {
@@ -34,34 +38,7 @@
       }
     }
 
-    .headerIcons {
-      display: flex;
-      align-items: center;
-      //height: 24px;
 
-      .favorites {
-        width: 24px;
-      }
-
-      .bookmark {
-        position: relative;
-        width: 24px;
-
-
-        svg {
-          width: 100%;
-          height: 100%;
-        }
-
-        .quantityLabels {
-          position: absolute;
-          top: 50%;
-          left: 35%;
-          font-size: 0.8em;
-          line-height: 0;
-        }
-      }
-    }
   }
 
   .blockArticle {
@@ -106,9 +83,9 @@
         transition: 0.5s;
         border-radius: 12px;
 
-        &:hover {
-          background-color: rgba($colorWhite, 0.9);
-        }
+        //&:hover {
+        //  background-color: rgba($colorWhite, 0.9);
+        //}
       }
     }
 

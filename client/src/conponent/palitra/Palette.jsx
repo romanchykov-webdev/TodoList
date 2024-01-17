@@ -3,6 +3,7 @@ import s from './Palette.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {changeColorBackgroundAction} from "../../reducers/getSliceReducer";
 import {putTodos} from "../../actions/todos";
+import {newChangeColorBackgroundAction} from "../main/newCard/newCardSliceReducer";
 
 
 const Palette = ({id, color,item}) => {
@@ -33,13 +34,21 @@ const Palette = ({id, color,item}) => {
 
     const handlerChangeColor=(id,color)=> {
         console.log(id,color)
-        dispatch(changeColorBackgroundAction({id,color}))
+        if(id!=='new'){
+
+            dispatch(changeColorBackgroundAction({id,color}))
+        }else{
+            dispatch(newChangeColorBackgroundAction(color))
+            console.log("id!=='new'")
+        }
     }
 
     function handlerClose() {
         setIsActive(false)
-        console.log(item)
-        dispatch(putTodos({idItem:item.id,newCard:item}))
+        if(id!=='new'){
+            console.log(item)
+            dispatch(putTodos({idItem:item.id,newCard:item}))
+        }
     }
 
     return (
@@ -58,30 +67,35 @@ const Palette = ({id, color,item}) => {
                                                                                                r="1.5"/>
             </svg>
            </span>
+
             {
                 isActive
-                && <div className={s.palettePopup}>
-                    <div className={s.closetButton}>
-                        <button className={s.btnColorPalette}
-                                onClick={() => handlerClose()}>close
-                        </button>
-                    </div>
-                    <div className={s.blockColors}>
-                        {
-                            palette.map((item,index) => (
-                                <div
-                                    onClick={()=>handlerChangeColor(id,item)}
-                                    className={`${s.colorItem} ${color === item ? s.active : ''}`}
-                                    key={item+index}
-                                    style={{backgroundColor: item}}
-                                ></div>
-                            ))
-                        }
+                && <>
+                    <div className={s.backgroundPopup}/>
+                    <div className={s.palettePopup}>
+                        <div className={s.closetButton}>
+                            <button className={s.btnColorPalette}
+                                    onClick={() => handlerClose()}>close
+                            </button>
+                        </div>
+                        <div className={s.blockColors}>
+                            {
+                                palette.map((item,index) => (
+                                    <div
+                                        onClick={()=>handlerChangeColor(id,item)}
+                                        className={`${s.colorItem} ${color === item ? s.active : ''}`}
+                                        key={item+index}
+                                        style={{backgroundColor: item}}
+                                    ></div>
+                                ))
+                            }
+
+                        </div>
+
 
                     </div>
+                </>
 
-
-                </div>
             }
         </div>
     );

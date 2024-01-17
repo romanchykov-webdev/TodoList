@@ -12,7 +12,7 @@ import {putTodos} from "../../../../../actions/todos";
 const ListCompleted = ({item, itemTodo}) => {
     const dispatch=useDispatch()
 
-    const [changeValue,setChangeValue]=useState()
+    const [changeValue,setChangeValue]=useState('')
     useEffect(() => {
         setChangeValue(item.title)
         console.log("change item")
@@ -83,12 +83,11 @@ const ListCompleted = ({item, itemTodo}) => {
     }
 
     return (
-        <div className={s.wrapperList}>
+        <div className={s.wrapperList} key={item.id}>
 
 
-            {
-                // mockArray.map(item => (
-                    <div className={s.wrapperItem} key={item.id}>
+
+                    <div className={s.wrapperItem} >
                         <div className={s.iconDrag}>
                             <svg width="30px" height="30px" viewBox="0 0 25 25" fill="none">
                                 <path fillRule="evenodd" clipRule="evenodd"
@@ -100,6 +99,7 @@ const ListCompleted = ({item, itemTodo}) => {
                             {
                                 item.completed
                                     ? <span className={s.iCompleted}
+
                                             onClick={()=>handlerCompleted(item)}
                                     >
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" >
@@ -109,6 +109,7 @@ const ListCompleted = ({item, itemTodo}) => {
                                         </svg>
                                       </span>
                                     : <span className={s.iNonCompleted}
+
                                             onClick={()=>handlerCompleted(item)}
                                     >
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" >
@@ -121,13 +122,12 @@ const ListCompleted = ({item, itemTodo}) => {
                         </div>
                         <input type="text"
                                className={item.completed ? `${s.itemCompleted}` : ''}
-                               defaultValue={item.title}
+                               // defaultValue={item.title}
                             value={changeValue}
                             onChange={(e)=>changeHandler(e)}
 
                         />
                         <button className={s.btnClose}
-
                             onClick={()=>handlerRemoveItem(item.id)}
                         >
                             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
@@ -137,8 +137,7 @@ const ListCompleted = ({item, itemTodo}) => {
                             </svg>
                         </button>
                     </div>
-                // ))
-            }
+
 
         </div>
 

@@ -12,10 +12,16 @@ const newCardSliceReducer = createSlice({
         listTemp: [],
         textareaTemp: [],
         labelChangePopup: false,
+        color: "#fff",
         labels: ["all"]
 
     },
     reducers: {
+        newChangeColorBackgroundAction(state, action) {
+            const color = action.payload
+            // debugger
+            state.color = color
+        },
         newCardShowAction(state) {
             state.isActive = true;
             state.isList = false;
@@ -103,14 +109,14 @@ const newCardSliceReducer = createSlice({
             // debugger
             if (!state.labels.includes(label)) {
                 // Add the label if it doesn't exist
-               state.labels = [...state.labels, label];
+                state.labels = [...state.labels, label];
 
             }
         },
         labelsRemoveAction(state, action) {
             const label = action.payload;
             // debugger
-            state.labels=state.labels.filter(item=>item!==label)
+            state.labels = state.labels.filter(item => item !== label)
         }
 
 
@@ -119,6 +125,7 @@ const newCardSliceReducer = createSlice({
 
 export default newCardSliceReducer.reducer
 export const {
+    newChangeColorBackgroundAction,
     newCardShowAction,
     newCardHiddenAction,
     textareaAction,
