@@ -28,10 +28,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 24px;
+    //height: 24px;
 
     .headerTitle {
+      width: 50%;
       input {
+        font-size: 1.2rem;
         width: 100%;
         background-color: transparent;
         border-bottom: 1px solid rgba($colorGray, 0.2);
@@ -127,6 +129,4 @@
   }
 }
 
-.wrapperCardBig {
 
-}

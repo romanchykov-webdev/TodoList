@@ -6,6 +6,7 @@ import newCardSliceReducer from "../conponent/main/newCard/newCardSliceReducer";
 import listSliceReducer from "../conponent/main/newCard/list/listSliceReducer";
 import labelChangePopupSliceReducer from "../conponent/main/labelChangePopup/labelChangePopupSliceReducer";
 import getSliceReducer from "./getSliceReducer";
+import HeaderIconsSliceReducer from "../conponent/headerIcons/HeaderIconsSliceReducer";
 
 
 const rootReducer=combineReducers({
@@ -15,7 +16,8 @@ const rootReducer=combineReducers({
     tilesSlice:tilesSliceReducer,
     newCardSlice: newCardSliceReducer,
     listSlice:listSliceReducer,
-    labelPopupSlice: labelChangePopupSliceReducer
+    labelPopupSlice: labelChangePopupSliceReducer,
+    isBigCard:HeaderIconsSliceReducer
 })
 
 export const store=configureStore({

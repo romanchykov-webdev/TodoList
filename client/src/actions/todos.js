@@ -26,7 +26,7 @@ export function getColorsPalette() {
         try {
             const response = await axios.get(`${API_URL}colorsPalette`);
             dispatch(getColorsPaletteAction(response.data))
-            console.log(response.data);
+            // console.log(response.data);
             console.log('rerender getColorsPalette')
         } catch (error) {
             console.error('Error fetching colors palette:', error);
@@ -45,7 +45,8 @@ export function postTodos(newItem) {
         try {
             // debugger
             // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
-            const response = await axios.post(`${API_URL}boards`,
+            // const response = await axios.post(`${API_URL}boards`,
+            await axios.post(`${API_URL}boards`,
                 {...newItem}
             )
             // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
@@ -65,7 +66,8 @@ export function putTodos({idItem,newCard}) {
     return async dispatch => {
         try {
             // dispatch(putTodos({ id: idItem, newItem: newCard }));
-            await axios.put(`http://localhost:5000/boards/${idItem}`, newCard);
+            // await axios.put(`http://localhost:5000/boards/${idItem}`, newCard);
+            await axios.put(`${API_URL}boards/${idItem}`, newCard);
 
             console.log('rerender put todos')
             dispatch(getTodos())
@@ -84,7 +86,8 @@ export function removeCard(id) {
     return async dispatch => {
         try {
 
-            await axios.delete(`http://localhost:5000/boards/${id}`);
+            // await axios.delete(`http://localhost:5000/boards/${id}`);
+            await axios.delete(`${API_URL}boards/${id}`);
 
             console.log('rerender removeCard')
             dispatch(getTodos())

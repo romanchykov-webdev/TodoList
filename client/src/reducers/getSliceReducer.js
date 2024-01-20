@@ -1,6 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {useDispatch} from "react-redux";
-import {putTodos} from "../actions/todos";
 
 
 const getSliceReducer = createSlice({
@@ -64,6 +62,16 @@ const getSliceReducer = createSlice({
                 }
                 return item; // Return the updated item
             });
+        },
+        expandCardToBigAction(state,action){
+            const id=action.payload
+            // debugger
+            state.getTodos=state.getTodos.map(item=>{
+                if(item.id===id){
+                    return {...item,expandSizeCard: !item.expandSizeCard}
+                }
+                return item
+            })
         }
 
     }
@@ -77,4 +85,5 @@ export const {
     favoriteToggleAction,
     bookmarkAddAction,
     bookmarkRemoveAction,
+    expandCardToBigAction
 } = getSliceReducer.actions

@@ -81,7 +81,7 @@ const newCardSliceReducer = createSlice({
             state.listTemp = state.listTemp.filter(item => item.id !== id)
         },
         isFavoriteToggleAction(state, action) {
-            const id = action.payload
+            // const id = action.payload
             state.isFavorite = !state.isFavorite
         },
 
@@ -97,6 +97,7 @@ const newCardSliceReducer = createSlice({
                 if (item.id === id) {
                     item.title = title
                 }
+                return item
             })
         },
         changeTextareaTempValueAction(state, action) {

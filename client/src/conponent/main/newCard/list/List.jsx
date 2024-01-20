@@ -85,7 +85,11 @@ if(Object.keys(itemTodo).length > 0){
         <div className={s.wrapperList}>
             {
                 // noCompleted.length>0 && <ListCompleted mockArray={noCompleted}/>
-                noCompleted.length > 0 && noCompleted.map(item => (<ListCompleted key={item.id} item={item} itemTodo={itemTodo}/>))
+                noCompleted.length > 0 && noCompleted.map(item =>
+                    (
+                        <ListCompleted key={item.id} item={item} itemTodo={itemTodo}/>
+                    )
+                )
             }
 
 
@@ -112,7 +116,11 @@ if(Object.keys(itemTodo).length > 0){
 
 
                 // completed.length>0 && <ListCompleted mockArray={completed} num={completed.length}/>
-                completed.length > 0 && completed.map(item => (<ListCompleted key={item.id} item={item} itemTodo={itemTodo}/>))
+                completed.length > 0 && completed.map(item =>
+                    (
+                        <ListCompleted key={item.id} item={item} itemTodo={itemTodo}/>
+                    )
+                )
             }
 
         </div>

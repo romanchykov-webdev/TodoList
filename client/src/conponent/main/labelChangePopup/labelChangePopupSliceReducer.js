@@ -7,8 +7,15 @@ const labelChangePopupSliceReducer = createSlice({
         item:[],
         id:0,
         labels:[],
+        labelsAllCards:[],
         isActive: false
     }, reducers: {
+        labelsAllCardsAction(state,action){
+            // debugger
+            // console.log('debugger labelsAllCardsAction')
+            const labelsAll=action.payload
+          state.labelsAllCards=labelsAll
+        },
         labelTogglePopupAction(state,action) {
             const item =action.payload
 
@@ -35,6 +42,7 @@ const labelChangePopupSliceReducer = createSlice({
 
 export default labelChangePopupSliceReducer.reducer
 export const {
+    labelsAllCardsAction,
     labelTogglePopupAction,
     addLabelAction,
     removeLabelAction
