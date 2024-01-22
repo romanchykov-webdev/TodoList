@@ -10,6 +10,7 @@ const HeaderIconsSliceReducer = createSlice({
     },
     reducers: {
         isBigCardAction(state, action) {
+
             const cardActive = action.payload
             state.isActive = !state.isActive
             state.isBigCard = cardActive

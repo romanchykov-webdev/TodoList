@@ -62,7 +62,7 @@ const NewCard = () => {
             "dateCreate": new Date(),
             "expandSizeCard":false
         }
-        // console.log({newCard})
+        // console.log(newCard)
         // post
 
         dispatch(postTodos({...newCard}))

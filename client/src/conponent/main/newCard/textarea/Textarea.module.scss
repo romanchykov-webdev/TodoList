@@ -5,4 +5,7 @@
   resize: none;
   //outline: 1px solid red;
   //field-size
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 }

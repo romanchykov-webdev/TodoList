@@ -9,7 +9,7 @@ import {
 import {putTodos} from "../../../../../actions/todos";
 
 
-const ListCompleted = ({item, itemTodo}) => {
+const ListCompleted = ({item, itemTodo, dragStart, onDrop,isSectionFavorite=[]}) => {
     const dispatch = useDispatch()
 
     const [changeValue, setChangeValue] = useState('')
@@ -25,7 +25,7 @@ const ListCompleted = ({item, itemTodo}) => {
         dispatch(changeListTempValueAction({id: item.id, title: e.target.value}));
 
 
-        if(Object.keys(itemTodo).length>0){
+        if (Object.keys(itemTodo).length > 0) {
             // console.log(itemTodo)
             // console.log(item.id)
             const newCard = {
@@ -51,13 +51,12 @@ const ListCompleted = ({item, itemTodo}) => {
         }
 
 
-
     };
 
     function handlerRemoveItem(id) {
         dispatch(removeListTempItemAction(id))
         // console.log(id)
-        if(Object.keys(itemTodo).length>0){
+        if (Object.keys(itemTodo).length > 0) {
             const newCard = {
                 ...itemTodo,
                 labelCheckBox: itemTodo.labelCheckBox.filter(i => i.id !== id)
@@ -75,7 +74,7 @@ const ListCompleted = ({item, itemTodo}) => {
         console.log(item)
         console.log(itemTodo)
 
-        if(Object.keys(itemTodo).length>0){
+        if (Object.keys(itemTodo).length > 0) {
             const newCard = {
                 ...itemTodo,
                 labelCheckBox: itemTodo.labelCheckBox.map(i => {
@@ -92,8 +91,52 @@ const ListCompleted = ({item, itemTodo}) => {
 
     }
 
+    // dragAndDrop
+    function handlerDragStart(item) {
+        dragStart(item)
+    }
+
+    function handlerOnDrop(e,item) {
+        onDrop(item)
+        if (e.target.classList.contains("blockDragAndDrop")) {
+            const grandparentNode = e.target.parentNode;
+
+            grandparentNode.style.borderTop= 'none';
+        }
+    }
+
+    function handlerDragEnter(e) {
+        if (e.target.classList.contains("blockDragAndDrop")) {
+            const grandparentNode = e.target.parentNode;
+
+            grandparentNode.style.borderTop= '1px solid black';
+        }
+
+    }
+
+    function handlerDragLeave(e) {
+        if (e.target.classList.contains("blockDragAndDrop")) {
+            const grandparentNode = e.target.parentNode;
+
+            grandparentNode.style.borderTop= 'none';
+        }
+    }
+    // dragAndDrop
+
+
+
     return (
-        <div className={s.wrapperList} key={item.id}>
+        <div className={s.wrapperList} key={item.id}
+             {...(!item.completed && {
+                 draggable: true,
+                 onDrop: (e) => handlerOnDrop(e, item),
+                 onDragStart: () => handlerDragStart(item),
+                 onDragEnter: (e) => handlerDragEnter(e),
+                 onDragLeave: (e) => handlerDragLeave(e),
+                 onDragOver: (e) => e.preventDefault(),
+             })}
+
+        >
             <div className={s.wrapperItem}>
                 <div className={s.iconDrag}>
                     <svg width="30px" height="30px" viewBox="0 0 25 25" fill="none">
@@ -133,7 +176,8 @@ const ListCompleted = ({item, itemTodo}) => {
 
                 </div>
                 <input type="text"
-                       className={item.completed ? `${s.itemCompleted}` : ''}
+                       style={isSectionFavorite.length>0 ? {fontSize:'1em'} : {}}
+                       className={item.completed ? `${s.itemCompleted} blockDragAndDrop` : 'blockDragAndDrop'}
                     // defaultValue={item.title}
                        value={changeValue}
                        onChange={(e) => changeHandler(e)}

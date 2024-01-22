@@ -1,16 +1,46 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Search.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {searchAction} from "./icons/searchSliceReducer";
+import { addSearchInput} from "../nav/NavSliceReducer";
+import {burgerAction} from "../burger/burgerSliceReducer";
 
 
 const Search = () => {
 
     const dispatch = useDispatch()
+    const isActiveNav=useSelector(state => state.burgerSlice.isActive)
 
     const isActive = useSelector(state => state.searchSlice.isActive)
+    const todos = useSelector(state => state.getSlice.getTodos)
+
+
 
     const [input, setInput] = useState('')
+
+
+    function handlerSearch(e) {
+        setInput(e.target.value)
+        dispatch(addSearchInput(e.target.value))
+
+        const searchTodo = todos.filter(item => {
+            // Check if item.title includes the search value
+            return item.title.toLowerCase().includes(e.target.value.toLowerCase());
+        });
+        console.log(searchTodo)
+
+        // dispatch(addLabelSearch(e.target.value))
+    }
+
+    const toggleActiveSearch=()=> {
+        dispatch(searchAction())
+        if(isActiveNav){
+            // console.log('burger true')
+            dispatch(burgerAction())
+        }
+        setInput('')
+        dispatch(addSearchInput(''))
+    }
 
     return (
         <div className={s.search}>
@@ -18,11 +48,11 @@ const Search = () => {
             <div className={isActive ? `${s.inputSearch} ${s.active}` : `${s.inputSearch}` }>
                 <input type="text"
                        value={input}
-                       onChange={(e) => setInput(e.target.value)}
+                       onChange={(e) => handlerSearch(e)}
                 />
             </div>
             <div className={s.iconSearch}
-                 onClick={() => dispatch(searchAction())}
+                 onClick={toggleActiveSearch}
             >
                 {
                     isActive

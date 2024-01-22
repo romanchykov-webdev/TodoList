@@ -6,7 +6,7 @@ import {expandCardToBigAction, favoriteToggleAction} from "../../reducers/getSli
 import {putTodos} from "../../actions/todos";
 import {isBigCardAction} from "./HeaderIconsSliceReducer";
 
-const HeaderIcons = ({item, isFavorite, quantityLabels, id}) => {
+const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) => {
 
     const dispatch = useDispatch()
 
@@ -36,27 +36,32 @@ const HeaderIcons = ({item, isFavorite, quantityLabels, id}) => {
 
     return (
         <div className={s.headerIcons}>
-            {
-                !isBigWindow && <span
-                    className={s.draggable}
-                >
-                    <svg fill="#000000"
-                         width="800px" height="800px" viewBox="0 0 52 52"
-                         enableBackground="new 0 0 52 52">
-                    <path d="M48.8,2H33.3c-1,0-1.3,0.9-0.5,1.7l4.9,4.9l-9,9c-0.5,0.5-0.5,1.3,0,1.9l3.7,3.7c0.5,0.5,1.3,0.5,1.9,0
-                        l9.1-9.1l4.9,4.9c0.8,0.8,1.7,0.5,1.7-0.5V3.1C50,2.5,49.4,2,48.8,2z"/>
-                    <path d="M3.5,50h15.4c1,0,1.3-1.1,0.5-1.9l-4.9-5l9-9.1c0.5-0.5,0.5-1.4,0-1.9l-3.7-3.7c-0.5-0.5-1.3-0.5-1.9,0l-9,9
-                        l-5-4.9C3,31.7,2,32,2,33v15.4C2,49.1,2.8,50,3.5,50z"/>
-                    <path d="M50,48.8V33.3c0-1-0.9-1.3-1.7-0.5l-4.9,4.9l-9-9c-0.5-0.5-1.3-0.5-1.9,0l-3.7,3.7c-0.5,0.5-0.5,1.3,0,1.9
-                        l9.1,9.1L33,48.3c-0.8,0.8-0.5,1.7,0.5,1.7h15.4C49.5,50,50,49.4,50,48.8z"/>
-                    <path d="M2,3.5v15.4c0,1,1.1,1.3,1.9,0.5l5-4.9l9.1,9c0.5,0.5,1.4,0.5,1.9,0l3.7-3.7c0.5-0.5,0.5-1.3,0-1.9l-9-9
-                        l4.9-5C20.3,3,20,2,19,2H3.6C2.9,2,2,2.8,2,3.5z"/>
-                    </svg>
-                </span>
-            }
+            {/*{isSectionFavorite}*/}
+            {/*{*/}
+            {/*    isSectionFavorite!=='isFavorite' &&(*/}
+            {/*        !isBigWindow && <span*/}
+            {/*            className={s.draggable}*/}
+            {/*        >*/}
+            {/*        <svg fill="#000000"*/}
+            {/*             width="800px" height="800px" viewBox="0 0 52 52"*/}
+            {/*             enableBackground="new 0 0 52 52">*/}
+            {/*        <path d="M48.8,2H33.3c-1,0-1.3,0.9-0.5,1.7l4.9,4.9l-9,9c-0.5,0.5-0.5,1.3,0,1.9l3.7,3.7c0.5,0.5,1.3,0.5,1.9,0*/}
+            {/*            l9.1-9.1l4.9,4.9c0.8,0.8,1.7,0.5,1.7-0.5V3.1C50,2.5,49.4,2,48.8,2z"/>*/}
+            {/*        <path d="M3.5,50h15.4c1,0,1.3-1.1,0.5-1.9l-4.9-5l9-9.1c0.5-0.5,0.5-1.4,0-1.9l-3.7-3.7c-0.5-0.5-1.3-0.5-1.9,0l-9,9*/}
+            {/*            l-5-4.9C3,31.7,2,32,2,33v15.4C2,49.1,2.8,50,3.5,50z"/>*/}
+            {/*        <path d="M50,48.8V33.3c0-1-0.9-1.3-1.7-0.5l-4.9,4.9l-9-9c-0.5-0.5-1.3-0.5-1.9,0l-3.7,3.7c-0.5,0.5-0.5,1.3,0,1.9*/}
+            {/*            l9.1,9.1L33,48.3c-0.8,0.8-0.5,1.7,0.5,1.7h15.4C49.5,50,50,49.4,50,48.8z"/>*/}
+            {/*        <path d="M2,3.5v15.4c0,1,1.1,1.3,1.9,0.5l5-4.9l9.1,9c0.5,0.5,1.4,0.5,1.9,0l3.7-3.7c0.5-0.5,0.5-1.3,0-1.9l-9-9*/}
+            {/*            l4.9-5C20.3,3,20,2,19,2H3.6C2.9,2,2,2.8,2,3.5z"/>*/}
+            {/*        </svg>*/}
+            {/*    </span>*/}
+            {/*    )*/}
+            {/*}*/}
+
+
 
             <span className={s.favorites} onClick={() => handlerFavorite(item)}>
-                        <svg
+                <svg
 
                             width="24" height="24" viewBox="0 0 24 24">
                             <path fill="none" d="M0 0h24v24H0z"/>

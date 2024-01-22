@@ -4,6 +4,7 @@ import Burger from "./burger/burger";
 import Search from "./search/Search";
 import Tiles from "./tile/Tiles";
 import {Link} from "react-router-dom";
+import Nav from "./nav/Nav";
 
 
 const Header = () => {
@@ -12,6 +13,7 @@ const Header = () => {
             <div className={"container"}>
                 <div className={s.wrapper}>
                     <Burger/>
+                    <Nav/>
                     <div className={s.wrapRight}>
                         <Search/>
                         <Tiles/>

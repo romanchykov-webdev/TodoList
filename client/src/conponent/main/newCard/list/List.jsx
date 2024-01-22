@@ -5,9 +5,10 @@ import ListCompleted from "./listCompleted/ListCompleted";
 import {useDispatch, useSelector} from "react-redux";
 import {listTempPushAction} from "../newCardSliceReducer";
 import {putTodos} from "../../../../actions/todos";
+import dragAndDropAction from "../../../../actions/dargAndDrop";
 
 
-const List = ({itemTodo=[]}) => {
+const List = ({itemTodo=[], isSectionFavorite=[]}) => {
 
 
 
@@ -76,9 +77,42 @@ if(Object.keys(itemTodo).length > 0){
 
     // crete new item onKeyPres
 
-    // reyDown
 
-    // reyDown
+    // // drag and drop
+const [dragStartItem,setDragStartItem]=useState(null)
+
+    function dragStart(item) {
+
+        // dragStartHandler(item);
+        // console.log("dragStart");
+        setDragStartItem(item)
+        // console.log(itemTodo);
+
+    }
+
+    function onDrop(item) {
+
+        // parentItem, dragLabel, dropLabel
+        const newCard=dragAndDropAction({
+            parentItem:itemTodo,
+            dragLabel:dragStartItem,
+            dropLabel:item
+        })
+        // console.log('ondrop')
+        // console.log(item)
+        // console.log(itemTodo);
+        // console.log(newCard);
+
+
+        dispatch(putTodos({idItem:newCard.id, newCard:newCard}))
+    }
+
+
+    function dragHandler() {
+        // console.log(item)
+    }
+
+
 
 
     return (
@@ -87,7 +121,14 @@ if(Object.keys(itemTodo).length > 0){
                 // noCompleted.length>0 && <ListCompleted mockArray={noCompleted}/>
                 noCompleted.length > 0 && noCompleted.map(item =>
                     (
-                        <ListCompleted key={item.id} item={item} itemTodo={itemTodo}/>
+                        <ListCompleted
+                            dragStart={dragStart}
+                            onDrop={onDrop}
+                            key={item.id}
+                            item={item}
+                            itemTodo={itemTodo}
+                            isSectionFavorite={isSectionFavorite}
+                        />
                     )
                 )
             }

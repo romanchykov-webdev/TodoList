@@ -13,7 +13,9 @@ const PopupBigCard = () => {
 
 
     return (
-        <div className={"wrapperBigCard"}>
+        <div className={"wrapperBigCard"}
+
+        >
             <AllCard item={item}/>
         </div>
 

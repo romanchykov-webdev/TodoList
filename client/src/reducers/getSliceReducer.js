@@ -55,7 +55,7 @@ const getSliceReducer = createSlice({
         },
         bookmarkRemoveAction(state, action) {
             const { id, label } = action.payload;
-            // debugger
+            debugger
             state.getTodos = state.getTodos.map(item => {
                 if (item.id === id) {
                     item.label = item.label.filter(itemLabel => itemLabel !== label);
@@ -72,7 +72,11 @@ const getSliceReducer = createSlice({
                 }
                 return item
             })
-        }
+        },
+
+
+
+
 
     }
 })
@@ -85,5 +89,6 @@ export const {
     favoriteToggleAction,
     bookmarkAddAction,
     bookmarkRemoveAction,
-    expandCardToBigAction
+    expandCardToBigAction,
+
 } = getSliceReducer.actions

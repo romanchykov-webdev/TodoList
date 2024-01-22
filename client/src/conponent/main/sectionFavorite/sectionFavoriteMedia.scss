@@ -1,0 +1,20 @@
+@import "../../../../util/colors";
+
+
+.favorite{
+  background-color: rgba($colorGray,0.05);
+  margin-bottom: 20px;
+  .wrapperTiles{
+    .wrapperCardBig{
+      flex-basis: calc(20% - 20px);
+      height: 200px;
+    }
+  }
+  .wrapperList{
+    flex-direction: row;
+    flex-wrap: wrap;
+    .wrapperCardBig{
+      max-height: 100px;
+    }
+  }
+}

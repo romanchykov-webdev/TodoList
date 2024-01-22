@@ -81,7 +81,7 @@ const LabelChangePopup = () => {
 
         if (foundItem) {
             newCard = {...foundItem}; // copy  item
-            console.log(newCard.id);
+            // console.log(newCard.id);
 
 
             dispatch(putTodos({idItem, newCard}))

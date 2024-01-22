@@ -2,16 +2,20 @@ import {API_URL} from "../config";
 import axios from "axios";
 import {getColorsPaletteAction, getTodosAction} from "../reducers/getSliceReducer";
 
+
+let oldTodos = []
+
 export function getTodos() {
 
     return async dispatch => {
         try {
             // debugger
             // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
-            const response = await axios.get(`${API_URL}boards`,{params:{_page:0,_limit: 1000}})
-                // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+            const response = await axios.get(`${API_URL}boards`, {params: {_page: 0, _limit: 1000}})
+            // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
 
             dispatch(getTodosAction(response.data))
+            oldTodos = [...response.data]
             // console.log('getTodos')
         } catch (e) {
             alert(e.response.data.message)
@@ -20,6 +24,7 @@ export function getTodos() {
     }
 
 }
+
 // get colors palette
 export function getColorsPalette() {
     return async dispatch => {
@@ -61,7 +66,7 @@ export function postTodos(newItem) {
 
 }
 
-export function putTodos({idItem,newCard}) {
+export function putTodos({idItem, newCard}) {
 // debugger
     return async dispatch => {
         try {
@@ -71,9 +76,7 @@ export function putTodos({idItem,newCard}) {
 
             console.log('rerender put todos')
             dispatch(getTodos())
-        }
-
-         catch (e) {
+        } catch (e) {
             alert(e.response.data.message)
         }
 
@@ -91,12 +94,13 @@ export function removeCard(id) {
 
             console.log('rerender removeCard')
             dispatch(getTodos())
-        }
-
-        catch (e) {
+        } catch (e) {
             alert(e.response.data.message)
         }
 
     }
 
 }
+
+
+

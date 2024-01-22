@@ -71,6 +71,11 @@
       height: 100%;
       background-color: transparent;
       resize: none;
+      overflow-y: scroll;
+      font-size: 2em;
+      &::-webkit-scrollbar {
+        width: 0;
+      }
 
     }
 
@@ -94,7 +99,9 @@
     .blockLabel {
       display: flex;
       overflow-x: scroll;
+      overflow-y: hidden;
       width: 100%;
+      cursor: auto;
 
       &::-webkit-scrollbar {
         //display: none;
@@ -120,6 +127,47 @@
         padding: 2px 5px;
         border: 1px solid $colorGray;
         border-radius: 12px;
+        position: relative;
+        transition: 0.5s;
+        &:hover{
+          color: rgba($colorBlack,0.2);
+          .removeLabel{
+            visibility: visible;
+            width: 100%;
+            height: 25px;
+          }
+        }
+        .removeLabel{
+          visibility: hidden;
+          position: absolute;
+          border-radius: 12px;
+          width: 100%;
+          height: 100%;
+          //outline: 1px solid red;
+          background-color: rgba($colorGray,0.5);
+          top: 0;
+          left: 0;
+          z-index: 3;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          span{
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: red;
+            &:first-child{
+              transform: rotate(45deg);
+            }
+            &:last-child{
+              transform: rotate(-45deg);
+            }
+          }
+
+        }
       }
     }
   }
