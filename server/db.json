@@ -35,6 +35,11 @@
       "isFavorite": true,
       "labelCheckBox": [
         {
+          "id": "d8f0ae72-71d1-4b34-bbd2-80b500b77daf",
+          "title": "555555gddffggggggggggdggd5555555",
+          "completed": false
+        },
+        {
           "id": "6fe3ab9c-b79a-491e-9d80-7f7b49cc9433",
           "title": "111111",
           "completed": false
@@ -52,11 +57,6 @@
         {
           "id": "820739e8-88cb-45f1-8f12-9c3628896b0d",
           "title": "44444444",
-          "completed": false
-        },
-        {
-          "id": "d8f0ae72-71d1-4b34-bbd2-80b500b77daf",
-          "title": "555555gddffggggggggggdggd5555555",
           "completed": false
         },
         {
@@ -209,7 +209,7 @@
       "title": "12212",
       "color": "#e9e3d4",
       "panelChangeBGColor": false,
-      "isFavorite": true,
+      "isFavorite": false,
       "labelCheckBox": [],
       "textareaCheckBox": "sssf",
       "dateCreate": "2024-01-22T18:18:19.364Z",

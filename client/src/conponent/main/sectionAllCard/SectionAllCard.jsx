@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import s from './sectionAllCard.module.scss'
+import './sectionAllCard.scss'
 
 import AllCard from "./card/AllCard";
 import {useDispatch, useSelector} from "react-redux";
@@ -33,7 +33,7 @@ const SectionAllCard = ({todos}) => {
 
 
     return (
-        <section className={s.allCard} key={'sectionAllCard'}>
+        <section className={"allCard"} key={'sectionAllCard'}>
             <div className={toggleTiles === "tiles" ? "wrapperTiles" : "wrapperList"} key={toggleTiles}>
 
                 {

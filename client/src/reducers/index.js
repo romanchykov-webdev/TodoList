@@ -9,6 +9,7 @@ import getSliceReducer from "./getSliceReducer";
 import HeaderIconsSliceReducer from "../conponent/headerIcons/HeaderIconsSliceReducer";
 import DragAndDrop from "../conponent/main/sectionAllCard/card/dragAndDrop";
 import NavSliceReducer from "../conponent/header/nav/NavSliceReducer";
+import SectionFavoriteSliceReducer from "../conponent/main/sectionFavorite/sectionFavoriteSliceReducer";
 
 
 const rootReducer=combineReducers({
@@ -20,7 +21,8 @@ const rootReducer=combineReducers({
     listSlice:listSliceReducer,
     labelPopupSlice: labelChangePopupSliceReducer,
     isBigCard:HeaderIconsSliceReducer,
-    navSlice:NavSliceReducer
+    navSlice:NavSliceReducer,
+    favoriteSlice:SectionFavoriteSliceReducer
 })
 
 export const store=configureStore({

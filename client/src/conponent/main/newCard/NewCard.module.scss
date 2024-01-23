@@ -4,6 +4,7 @@
 .wrapperNewCard {
   position: absolute;
   top: -180px;
+  left: 0;
   z-index: 1;
   //height: 200px;
   width: 100%;
@@ -61,7 +62,12 @@
             width: 40px;
             height: 40px;
           }
+
+          div{
+            margin-right: 0;
+          }
         }
+
       }
 
     }
