@@ -1,5 +1,6 @@
 {
     "serverPort" : 5001,
-    "dbUrl": "mongodb+srv://romanchykovserhii:42FrOMxEyH0kj62l@cluster0.spfbgsw.mongodb.net/Cluster0?retryWrites=true&w=majority"
+    "dbUrl": "mongodb+srv://romanchykovserhii:42FrOMxEyH0kj62l@cluster0.spfbgsw.mongodb.net/Cluster0?retryWrites=true&w=majority",
+    "secretKey": "romanchykovserhii-secret-key"
 }
 

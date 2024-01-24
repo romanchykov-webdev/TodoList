@@ -2,4 +2,5 @@
 2) npm i express mongoose config
 3) npm i -D nodemon
 4) npm i bcrypt -----------(for hash password)
-5) npm i express-validator
+5) npm i express-validator   ----------(for validation email and password)
+6) npm i jsonwebtoken
