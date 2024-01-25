@@ -10,6 +10,8 @@ import HeaderIconsSliceReducer from "../conponent/headerIcons/HeaderIconsSliceRe
 import DragAndDrop from "../conponent/main/sectionAllCard/card/dragAndDrop";
 import NavSliceReducer from "../conponent/header/nav/NavSliceReducer";
 import SectionFavoriteSliceReducer from "../conponent/main/sectionFavorite/sectionFavoriteSliceReducer";
+import userSliceReducer from "../conponent/authRegis/userSliceReducer";
+import todoSliceReducer from "../conponent/authRegis/todoSliceReducer";
 
 
 const rootReducer=combineReducers({
@@ -22,7 +24,9 @@ const rootReducer=combineReducers({
     labelPopupSlice: labelChangePopupSliceReducer,
     isBigCard:HeaderIconsSliceReducer,
     navSlice:NavSliceReducer,
-    favoriteSlice:SectionFavoriteSliceReducer
+    favoriteSlice:SectionFavoriteSliceReducer,
+    userSlice:userSliceReducer,
+    todoSlice:todoSliceReducer
 })
 
 export const store=configureStore({
