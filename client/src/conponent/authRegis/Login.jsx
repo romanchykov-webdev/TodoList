@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import s from './authRegis.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {toggleIsVisiblePassword} from "./userSliceReducer";
@@ -10,12 +10,16 @@ const Login = () => {
     const[password,setPassword]=useState('')
 
 
+
+
     const handlerEmail=(e)=> {
         console.log(e.target.value)
+        setEmail(e.target.value)
     }
 
     const handlerPassword = (e) => {
         console.log(e.target.value)
+        setPassword(e.target.value)
     };
     const handlerIsVisible = () => {
         dispatch(toggleIsVisiblePassword(isVisiblePassword))
@@ -24,21 +28,42 @@ const Login = () => {
         <div className={'container'}>
             <div className={s.wrapperAuthReg}>
                 <div className={s.wrapperForm}>
+                    <h2>Login</h2>
                     <form >
                         <label htmlFor="email" className={s.email}>
-                            <span>Email</span>
+
+                            <span className={
+                                email!=='' ? `${s.spanPlaceholder} ${s.active}`: `${s.spanPlaceholder}`
+                            }>
+                                {
+                                    email==='' ? ('Enter yor mail...') : ('Email')
+                                }
+                            </span>
                             <input
+                                value={email}
                                 onChange={handlerEmail}
                                 type="email" id={'email'}
-                                placeholder={'Enter yor email...'}
+                                // placeholder={'Enter yor email...'}
+                                autoComplete="new-email"
                             />
 
                         </label>
                         <label htmlFor="password" className={s.password}>
-                            <span>Password</span>
+                            <span
+                                className={
+                                    password!=='' ? `${s.spanPlaceholder} ${s.active}`: `${s.spanPlaceholder}`
+                                }
+                            >
+                                {
+                                    password==='' ? ('Enter yor password...') : ('Password')
+                                }
+                            </span>
                             <input
+                                value={password}
                                 onChange={handlerPassword}
-                                type={isVisiblePassword ? 'text' : 'password'} id={'password'} placeholder={'Enter yor password...'}
+                                type={isVisiblePassword ? 'text' : 'password'} id={'password'}
+                                // placeholder={'Enter yor password...'}
+                                autoComplete="new-password"
                             />
                             <span className={s.eyeIcon}
                                   onClick={handlerIsVisible}
@@ -68,11 +93,15 @@ const Login = () => {
                             </g>
                             </svg>
                           <span className={s.onOf}
-                                style={{width: isVisiblePassword && '0'}}
+                                style={password!=='' ? {width: isVisiblePassword && '0'} : {width: isVisiblePassword && '30px'}}
+
                           ></span>
                       </span>
                         </label>
-                        <button>login</button>
+                        <div className={s.wrapperBtn}>
+                            <button className={s.btnAuthReg}>Login</button>
+                            <button className={s.btnAuthReg}>Registration</button>
+                        </div>
                     </form>
 
                 </div>
