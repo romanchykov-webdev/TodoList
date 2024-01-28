@@ -1,6 +1,7 @@
 import axios from "axios";
 import {API_URLMongo} from "../config";
 import {isAuthUserAction} from "../conponent/authRegis/userSliceReducer";
+import {getTodosAction} from "../reducers/getSliceReducer";
 
 // registration
 export const registration = async (email, password) => {
@@ -40,19 +41,14 @@ export const login = (email, password) => {
 export const auth = () => {
     return async dispatch => {
         try {
-            // const response = await axios.get(`${API_URLMongo}auth/auth`,
-            //     {
-            //         headers:{Authorization:`Bearer${localStorage.getItem('token')}`}
-            //     }
-            // )
-            // dispatch(isAuthUserAction(response.data.user))
-            // localStorage.setItem('token',response.data.token)
-            // console.log(response.data)
+
             const response =await axios.get(`${API_URLMongo}auth/auth`, {
                 headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
             })
             dispatch(isAuthUserAction(response.data.user))
+            dispatch(getTodosAction(response.data.user.todos))
             localStorage.setItem('token',response.data.token)
+
             console.log(response.data)
 
         } catch (e) {
@@ -62,3 +58,5 @@ export const auth = () => {
     }
 
 }
+
+

@@ -14,6 +14,7 @@ import {v4} from "uuid";
 import {postTodos} from "../../../actions/todos";
 import {labelTogglePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
 import Palette from "../../palitra/Palette";
+import axios from "axios";
 
 
 
@@ -48,6 +49,7 @@ const NewCard = () => {
     }
 
     // function createHandles() {
+    const userId=useSelector(state => state.userSlice.currentUser.id)
     const createHandles = async (e) => {
 
         const newCard = {

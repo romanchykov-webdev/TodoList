@@ -19,12 +19,12 @@ function App() {
     const isActiveCardBig = useSelector(state => state.isBigCard.isActive)
     const isAuth = useSelector(state => state.userSlice.isAuth)
 
-    // useEffect(() => {
-    //     dispatch(auth())
-    // }, []);
-    useLayoutEffect(() => {
+    useEffect(() => {
         dispatch(auth())
     }, []);
+/*    useLayoutEffect(() => {
+        dispatch(auth())
+    }, []);*/
 
     return (
         <div className="App">
@@ -54,9 +54,3 @@ function App() {
 export default App;
 
 
-// <div className="App">
-//     {isActiveLabelPopup && <LabelChangePopup/>}
-//     {isActiveCardBig && <PopupBigCard/>}
-//     <Header/>
-//     <Main/>
-// </div>

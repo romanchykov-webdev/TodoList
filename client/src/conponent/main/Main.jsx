@@ -6,6 +6,7 @@ import SectionFavorite from "./sectionFavorite/sectionFavorite";
 import {getColorsPalette, getTodos} from "../../actions/todos";
 import {useDispatch, useSelector} from "react-redux";
 import {labelsAllCardsAction} from "./labelChangePopup/labelChangePopupSliceReducer";
+import {auth} from "../../actions/user";
 
 const Main = () => {
     const dispatch=useDispatch()
@@ -17,7 +18,8 @@ const Main = () => {
     // get all todos
 
     useEffect(()=>{
-        dispatch(getTodos())
+        // dispatch(getTodos())
+        dispatch(auth())
     },[dispatch])
 
     // get all todos

@@ -22,21 +22,20 @@ export function getTodos() {
     //     }
     //
     // }
-    // return async dispatch => {
-    //     try {
-    //         debugger
-    //         const response =await axios.get(`${API_URLMongo}auth/todos`, {
-    //             headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
-    //         })
-    //         dispatch(getTodosAction(response.data))
-    //         oldTodos = [...response.data]
-    //         console.log('getTodos')
-    //     } catch (e) {
-    //
-    //         alert(e.response.data.message)
-    //     }
-    //
-    // }
+    return async dispatch => {
+        try {
+            // debugger
+            const response =await axios.get(`${API_URLMongo}auth/todos`, {
+                headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
+            })
+            dispatch(getTodosAction(response.data))
+            oldTodos = [...response.data]
+            // console.log('getTodos')
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+
+    }
 }
 
 // get colors palette
@@ -79,51 +78,28 @@ export function getColorsPalette() {
 //     }
 //
 // }
-// export function postTodos(newItem) {
-//     return async (dispatch) => {
-//         try {
-//             debugger
-//            await axios.post(
-//                 `${API_URLMongo}auth/todos`,
-//                 newItem,  // Send newItem as the request body for a POST request
-//                 {
-//                     headers: {
-//                         Authorization: `Bearer ${localStorage.getItem('token')}`,
-//                     },
-//                 }
-//             );
-//
-//             dispatch(getTodos());
-//             console.log('rerender postTodos');
-//         } catch (e) {
-//             alert(e.response.data.message);
-//         }
-//     };
-// }
-export const postTodos = (newItem) => async (dispatch) => {
-    try {
-        debugger; // Если нужен, оставьте эту строку
-        await axios.post(`${API_URLMongo}auth/add-todos`, newItem, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        });
+export function postTodos(newItem) {
+    return async (dispatch) => {
+        try {
+            debugger
+           await axios.post(
+                `${API_URLMongo}auth/todos`,
+                newItem,  // Send newItem as the request body for a POST request
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
 
-        // Вызываем другой экшен для обновления todos после успешного добавления
-        dispatch(getTodos());
+            dispatch(getTodos());
+            console.log('rerender postTodos');
+        } catch (e) {
+            alert(e.response.data.message);
+        }
+    };
+}
 
-        // Если необходимо, можно добавить дополнительный код для обработки успешного запроса
-        // dispatch({ type: POST_TODOS_SUCCESS });
-
-        console.log('rerender postTodos');
-    } catch (error) {
-        // Обработка ошибки
-        console.error('Error in postTodos:', error);
-
-        // Можно использовать другие способы обработки ошибок, например, добавить их в state
-        // dispatch({ type: POST_TODOS_FAILURE, payload: error.response.data.message });
-    }
-};
 
 
 

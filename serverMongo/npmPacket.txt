@@ -4,3 +4,5 @@
 4) npm i bcrypt -----------(for hash password)
 5) npm i express-validator   ----------(for validation email and password)
 6) npm i jsonwebtoken
+
+secretkey:znARz2ezz6PteZWoFGntwpTsNX8c8TAmmnuqwKcRnQMVwxNXRrez1YRM9rLDqjOc

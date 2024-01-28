@@ -66,7 +66,8 @@ router.post('/login',
                     id: user.id,
                     email: user.email,
                     avatar: user.avatar,
-                    todos:user.todos
+                    colorsPalette: user.colorsPalette,
+                    todos: user.todos
                 }
             })
         } catch (e) {
@@ -78,29 +79,7 @@ router.post('/login',
 
 // is auth
 const authMiddleWare=require("../middleware/auth.middleware")
-// router.get('/auth', authMiddleWare,
-//     async (req, res) => {
-//         try {
-//
-//             const user = await User.findOne({_id: req.use.id})
-//
-//             const token = jwt.sign({id: user.id}, config.get("secretKey"), {expiresIn: "1h"})
-//             return res.json({
-//                 token,
-//                 user: {
-//                     id: user.id,
-//                     email: user.email,
-//                     avatar: user.avatar,
-//                     todos:user.todos
-//                 }
-//             })
-//
-//         } catch (e) {
-//             console.log(e)
-//             res.status(500).send({message: 'Server error'});
-//         }
-//     }
-//     )
+
 router.get(
     '/auth', authMiddleWare,
 
@@ -114,8 +93,9 @@ router.get(
                 user: {
                     id: user.id,
                     email: user.email,
-                    todos: user.todos,
-                    avatar: user.avatar
+                    avatar: user.avatar,
+                    colorsPalette: user.colorsPalette,
+                    todos: user.todos
                 }
             })
 
@@ -126,6 +106,57 @@ router.get(
         }
     }
 );
+
+// get todos
+router.get('/todos', authMiddleWare,
+    async (req, res) => {
+    try {
+        // req.user содержит информацию о пользователе из токена
+        const userId = await User.findOne({_id: req.user.id})
+
+
+        // Здесь вы можете использовать userId для запроса todos пользователя из базы данных
+        const user = await User.findById(userId).populate('todos'); // Предполагается, что есть поле 'todos' в вашей схеме
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+        console.log(user.todos)
+        return res.json({ todos: user.todos });
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+    }
+});
+
+
+// add todo
+router.post('/add-todos',authMiddleWare ,
+    async (req, res) => {
+    try {
+
+        const userId = req.body.userId; // Предполагается, что вы передаете идентификатор пользователя в теле запроса
+        const newTodos = req.body.newTodos; // Предполагается, что вы передаете массив новых объектов в теле запроса
+
+        // Находим пользователя по его идентификатору
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        // Добавляем новые объекты в массив todos пользователя
+        user.todos.push(...newTodos);
+
+        // Сохраняем изменения в базе данных
+        await user.save();
+
+        return res.json({ message: 'Массив объектов успешно добавлен в todos пользователя', user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+    }
+});
 
 
 module.exports = router;
