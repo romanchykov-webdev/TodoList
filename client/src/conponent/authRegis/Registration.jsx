@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState} from 'react';
+
+import Login from "./Login";
 
 const Registration = () => {
     return (
-        <div>
-            <h2>Registration</h2>
-        </div>
+       <Login title={'Registration'}/>
     );
 };
 

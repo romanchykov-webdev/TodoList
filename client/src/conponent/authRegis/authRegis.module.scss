@@ -20,7 +20,7 @@
       text-align: center;
     }
 
-    form {
+    .form {
       label {
         position: relative;
         margin-bottom: 40px;
@@ -42,7 +42,7 @@
           font-size: 2em;
           padding: 5px;
           width: calc(100% - 34px);
-
+          border-bottom: 1px solid $colorGray;
         }
 
         .spanPlaceholder.active {
@@ -106,7 +106,7 @@
       .wrapperBtn {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
 
         .btnAuthReg {
           //outline: 1px solid red;

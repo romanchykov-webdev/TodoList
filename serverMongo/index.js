@@ -6,6 +6,8 @@ const app=express()
 const PORT= config.get("serverPort")
 // console.log(PORT)
 
+const corsMiddleWare=require("./middleware/cors.middleware")
+app.use(corsMiddleWare)
 
 // auth
 const authRouter=require("./routes/auth.routes")

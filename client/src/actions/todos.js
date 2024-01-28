@@ -1,4 +1,4 @@
-import {API_URL} from "../config";
+import {API_URL, API_URLMongo} from "../config";
 import axios from "axios";
 import {getColorsPaletteAction, getTodosAction} from "../reducers/getSliceReducer";
 
@@ -7,13 +7,27 @@ let oldTodos = []
 
 export function getTodos() {
 
+    // return async dispatch => {
+    //     try {
+    //         // debugger
+    //         // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
+    //         const response = await axios.get(`${API_URL}boards`, {params: {_page: 0, _limit: 1000}})
+    //         // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+    //
+    //         dispatch(getTodosAction(response.data))
+    //         oldTodos = [...response.data]
+    //         // console.log('getTodos')
+    //     } catch (e) {
+    //         alert(e.response.data.message)
+    //     }
+    //
+    // }
     return async dispatch => {
         try {
             // debugger
-            // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
-            const response = await axios.get(`${API_URL}boards`, {params: {_page: 0, _limit: 1000}})
-            // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
-
+            const response =await axios.get(`${API_URLMongo}auth/todos`, {
+                headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
+            })
             dispatch(getTodosAction(response.data))
             oldTodos = [...response.data]
             // console.log('getTodos')
@@ -22,7 +36,6 @@ export function getTodos() {
         }
 
     }
-
 }
 
 // get colors palette
@@ -44,28 +57,54 @@ export function getColorsPalette() {
 // get colors palette
 
 
+// export function postTodos(newItem) {
+//
+//     return async dispatch => {
+//         try {
+//             // debugger
+//             // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
+//             // const response = await axios.post(`${API_URL}boards`,
+//             await axios.post(`${API_URL}boards`,
+//                 {...newItem}
+//             )
+//             // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+//             dispatch(getTodos())
+//             // debugger
+//             console.log('rerender postTodos')
+//         } catch (e) {
+//             alert(e.response.data.message)
+//         }
+//
+//     }
+//
+// }
 export function postTodos(newItem) {
-
-    return async dispatch => {
+    return async (dispatch) => {
         try {
-            // debugger
-            // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
-            // const response = await axios.post(`${API_URL}boards`,
-            await axios.post(`${API_URL}boards`,
-                {...newItem}
-            )
-            // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
-            dispatch(getTodos())
-            // debugger
-            console.log('rerender postTodos')
+            debugger
+           await axios.post(
+                `${API_URLMongo}auth/todos`,
+                newItem,  // Send newItem as the request body for a POST request
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
+
+            dispatch(getTodos());
+            console.log('rerender postTodos');
         } catch (e) {
-            alert(e.response.data.message)
+            alert(e.response.data.message);
         }
-
-    }
-
+    };
 }
 
+
+
+
+
+// putTodos
 export function putTodos({idItem, newCard}) {
 // debugger
     return async dispatch => {

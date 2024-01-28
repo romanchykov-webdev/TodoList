@@ -4,7 +4,7 @@ const User = new Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     avatar: {type: String},
-    todos: [{type: ObjectId, ref: 'Todo'}]
+    todos: [{type: ObjectId, ref: 'Todo',default:{}}]
 })
 
 

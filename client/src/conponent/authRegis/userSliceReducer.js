@@ -6,16 +6,29 @@ const userSliceReducer=createSlice({
     initialState:{
         currentUser:{},
         isAuth:false,
-        isVisible:false
+        isVisiblePassword:false
     },
     reducers:{
-        toggleIsVisiblePassword(state){
-            state.isVisible=!state.isVisible
+        toggleIsVisiblePasswordAction(state){
+            state.isVisiblePassword=!state.isVisiblePassword
+        },
+        isAuthUserAction(state,action){
+            const user=action.payload
+            state.currentUser=user
+            state.isAuth=true
+        },
+        logOutAction(state){
+            localStorage.removeItem('token')
+            state.isAuth=false
+            state.currentUser={}
+            state.isAuth=false
         }
     }
 })
 
 export default userSliceReducer.reducer
 export const {
-    toggleIsVisiblePassword,
+    toggleIsVisiblePasswordAction,
+    isAuthUserAction,
+    logOutAction
 }=userSliceReducer.actions

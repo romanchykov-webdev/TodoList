@@ -4,6 +4,27 @@ header{
   padding: 5px;
   background-color: $backgroundColor;
   box-shadow: inset 0 -1px 0 0 $colorShadow;
+  position: relative;
+  .backgroundHidden{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    background-color: rgba($colorGray, 0.7);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    a{
+      font-size: 2em;
+      border-bottom: 1px solid transparent;
+
+      &:hover{
+        border-bottom: 1px solid $colorGray;
+      }
+    }
+  }
   .wrapper{
     display: flex;
     justify-content: space-between;
@@ -15,11 +36,46 @@ header{
         border-radius: 50%;
         border:1px solid $colorGray;
         //padding: 5px;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        .nikName{
+          position: absolute;
+          top:-10px;
+          left: -50%;
+          font-size: 0.8em;
+          //outline: 1px solid red;
+          max-width: 100px;
+          overflow: hidden;
+        }
+        .iconAvatar{
+          position: relative;
+          z-index: 1;
+        }
+        .logOut{
+          //outline: 1px solid red;
+          position: absolute;
+          bottom: -25px;
+          left: 0;
+          scale: 0.7;
+          transition: 0.5s ease-in-out;
+          z-index: 0;
+            a{
+              font-size: 1.4em;
+              svg{
+                fill:red;
+              }
+            }
+        }
         svg{
           width: 100%;
           height: 100%;
+        }
+        &:hover{
+          .logOut{
+            scale: 1.2;
+            bottom:-40px;
+          }
         }
       }
     }

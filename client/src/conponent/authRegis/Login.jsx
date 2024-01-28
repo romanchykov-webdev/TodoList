@@ -1,18 +1,21 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, { useState} from 'react';
 import s from './authRegis.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {toggleIsVisiblePassword} from "./userSliceReducer";
-const Login = () => {
-    const dispatch=useDispatch()
-    const isVisiblePassword=useSelector(state => state.userSlice.isVisible)
+import {toggleIsVisiblePasswordAction} from "./userSliceReducer";
+import {login, registration} from "../../actions/user";
+import {NavLink} from "react-router-dom";
 
-    const[email,setEmail]=useState('')
-    const[password,setPassword]=useState('')
+const Login = ({title = {}}) => {
+    const dispatch = useDispatch()
+    const isVisiblePassword = useSelector(state => state.userSlice.isVisiblePassword)
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
 
 
 
-    const handlerEmail=(e)=> {
+    const handlerEmail = (e) => {
         console.log(e.target.value)
         setEmail(e.target.value)
     }
@@ -22,21 +25,37 @@ const Login = () => {
         setPassword(e.target.value)
     };
     const handlerIsVisible = () => {
-        dispatch(toggleIsVisiblePassword(isVisiblePassword))
+        dispatch(toggleIsVisiblePasswordAction(isVisiblePassword))
+    };
+
+
+    const handlerLogin = async (e) => {
+        e.preventDefault()
+        // let email = "rom@ser3.com";
+        // let password = "123456";
+        dispatch(login(email,password))
+
+    };
+
+
+    const handlerRegistration = (e) => {
+        e.preventDefault()
+        registration(email,password)
     };
     return (
         <div className={'container'}>
             <div className={s.wrapperAuthReg}>
                 <div className={s.wrapperForm}>
-                    <h2>Login</h2>
-                    <form >
+                    <h2>{title.length>0 ? title : 'Login'}</h2>
+
+                    <div className={s.form}>
                         <label htmlFor="email" className={s.email}>
 
                             <span className={
-                                email!=='' ? `${s.spanPlaceholder} ${s.active}`: `${s.spanPlaceholder}`
+                                email !== '' ? `${s.spanPlaceholder} ${s.active}` : `${s.spanPlaceholder}`
                             }>
                                 {
-                                    email==='' ? ('Enter yor mail...') : ('Email')
+                                    email === '' ? ('Enter yor mail...') : ('Email')
                                 }
                             </span>
                             <input
@@ -51,11 +70,11 @@ const Login = () => {
                         <label htmlFor="password" className={s.password}>
                             <span
                                 className={
-                                    password!=='' ? `${s.spanPlaceholder} ${s.active}`: `${s.spanPlaceholder}`
+                                    password !== '' ? `${s.spanPlaceholder} ${s.active}` : `${s.spanPlaceholder}`
                                 }
                             >
                                 {
-                                    password==='' ? ('Enter yor password...') : ('Password')
+                                    password === '' ? ('Enter yor password...') : ('Password')
                                 }
                             </span>
                             <input
@@ -88,21 +107,37 @@ const Login = () => {
                                         s12.5,5.597,12.5,12.5C298.521,263.754,263.754,298.521,221.02,298.521z"/>
                                 </g>
                                 <g>
-                                    <path d="M221.02,246.021c-13.785,0-25-11.215-25-25s11.215-25,25-25c13.786,0,25,11.215,25,25S234.806,246.021,221.02,246.021z"/>
+                                    <path
+                                        d="M221.02,246.021c-13.785,0-25-11.215-25-25s11.215-25,25-25c13.786,0,25,11.215,25,25S234.806,246.021,221.02,246.021z"/>
                                 </g>
                             </g>
                             </svg>
                           <span className={s.onOf}
-                                style={password!=='' ? {width: isVisiblePassword && '0'} : {width: isVisiblePassword && '30px'}}
+                                style={password !== '' ? {width: isVisiblePassword && '0'} : {width: isVisiblePassword && '30px'}}
 
                           ></span>
                       </span>
                         </label>
                         <div className={s.wrapperBtn}>
-                            <button className={s.btnAuthReg}>Login</button>
-                            <button className={s.btnAuthReg}>Registration</button>
+                            {
+                                title.length>0
+                                ? <button className={s.btnAuthReg}
+                                          onClick={handlerRegistration}
+                                    >Registration</button>
+                                    : <button className={s.btnAuthReg}
+                                              onClick={handlerLogin}
+                                    >
+                                        <NavLink to={'/'}>
+                                            Login
+                                        </NavLink>
+                                    </button>
+                            }
+
+
+
+
                         </div>
-                    </form>
+                    </div>
 
                 </div>
             </div>
