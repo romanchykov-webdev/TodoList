@@ -15,6 +15,8 @@ import {postTodos} from "../../../actions/todos";
 import {labelTogglePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
 import Palette from "../../palitra/Palette";
 import axios from "axios";
+import {API_URLMongo} from "../../../config";
+import {addTodo} from "../../../actions/user";
 
 
 
@@ -65,18 +67,18 @@ const NewCard = () => {
             "expandSizeCard":false
         }
         // console.log(newCard)
-        // post
-
-        dispatch(postTodos({...newCard}))
 
 
+        dispatch(addTodo({...newCard}))
 
-        dispatch(createNewCardAction())
-        dispatch(newCardHiddenAction())
-        setHeaderInput('')
-        setMainTextarea('')
-        setTextareaHeight('auto')
-        dispatch(newChangeColorBackgroundAction('#fff'))
+
+
+        // dispatch(createNewCardAction())
+        // dispatch(newCardHiddenAction())
+        // setHeaderInput('')
+        // setMainTextarea('')
+        // setTextareaHeight('auto')
+        // dispatch(newChangeColorBackgroundAction('#fff'))
 
     }
 

@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {expandCardToBigAction, favoriteToggleAction} from "../../reducers/getSliceReducer";
 import {putTodos} from "../../actions/todos";
 import {isBigCardAction} from "./HeaderIconsSliceReducer";
+import {updateTodo} from "../../actions/user";
 
 const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) => {
 
@@ -13,11 +14,12 @@ const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) =
     const isBigWindow = useSelector(state => state.isBigCard.isActive)
 
     const handlerFavorite = (item) => {
-        const newItem = {...item, isFavorite: !item.isFavorite}
+        const newTodo = {...item, isFavorite: !item.isFavorite}
         // console.log(newItem)
         const id = item.id
         dispatch(favoriteToggleAction(id))
-        dispatch(putTodos({idItem: item.id, newCard: newItem}))
+        // dispatch(putTodos({idItem: item.id, newCard: newItem}))
+        dispatch(updateTodo(newTodo))
     }
 
     function handlerBookmark(item) {

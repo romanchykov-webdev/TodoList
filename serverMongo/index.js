@@ -13,8 +13,7 @@ app.use(corsMiddleWare)
 const authRouter=require("./routes/auth.routes")
 app.use(express.json())
 app.use("/api/auth", authRouter)
-const todosRouter=require("./routes/todos.routes")
-app.use("/api/todos", todosRouter)
+
 // auth
 
 const start= async ()=>{

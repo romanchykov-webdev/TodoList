@@ -159,4 +159,57 @@ router.post('/add-todos',authMiddleWare ,
 });
 
 
+// Добавление todo
+router.post('/add-todo', authMiddleWare, async (req, res) => {
+    try {
+        const userId = req.user.id; // Получаем идентификатор пользователя из токена
+        const { newTodo } = req.body; // Получаем новый todo из тела запроса
+
+        // Находим пользователя по его идентификатору
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        // Добавляем новый объект в массив todos пользователя
+        user.todos.push(newTodo);
+
+        // Сохраняем изменения в базе данных
+        await user.save();
+
+        return res.json({ message: 'Объект успешно добавлен в массив todos пользователя', user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+    }
+});
+
+router.post('/update-todo', authMiddleWare, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { newTodo } = req.body;
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        const todoIndex = user.todos.findIndex(todo => todo.id === newTodo.id);
+
+        if (todoIndex === -1) {
+            return res.status(404).json({ message: 'Todo с указанным ID не найден' });
+        }
+
+        user.todos[todoIndex] = newTodo;
+        await user.save();
+
+        return res.json({ message: 'Объект успешно добавлен в массив todos пользователя', user });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Внутренняя ошибка сервера', error: error.message });
+    }
+});
+
 module.exports = router;

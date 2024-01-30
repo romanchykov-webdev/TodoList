@@ -11,9 +11,9 @@ import {auth} from "../../actions/user";
 const Main = () => {
     const dispatch=useDispatch()
     // get color palette
-    useEffect(()=>{
-        dispatch(getColorsPalette())
-    },[dispatch])
+    // useEffect(()=>{
+    //     dispatch(getColorsPalette())
+    // },[dispatch])
     // get color palette
     // get all todos
 
