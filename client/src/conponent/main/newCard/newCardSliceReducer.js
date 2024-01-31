@@ -9,7 +9,8 @@ const newCardSliceReducer = createSlice({
         isTextarea: true,
         isList: true,
         isFavorite: false,
-        listTemp: [],
+        // listTemp: [],
+        labelCheckBox: [],
         textareaTemp: [],
         labelChangePopup: false,
         color: "#fff",
@@ -32,7 +33,8 @@ const newCardSliceReducer = createSlice({
             state.isTextarea = true;
             state.isList = true;
             state.isFavorite = false;
-            state.listTemp = []
+            // state.listTemp = []
+            state.labelCheckBox = []
             state.textareaTemp = []
             state.labels = ["all"]
 
@@ -51,7 +53,8 @@ const newCardSliceReducer = createSlice({
         listTempPushAction(state, action) {
             const {newItem} = action.payload
             // debugger
-            state.listTemp.push(newItem)
+            // state.listTemp.push(newItem)
+            state.labelCheckBox.push(newItem)
         },
         textareaTempPushAction(state, action) {
             const {newItem} = action.payload
@@ -67,7 +70,8 @@ const newCardSliceReducer = createSlice({
             // );
             // state.listTemp=updateList
 
-            const itemToToggle = state.listTemp.find(item => item.id === id);
+            // const itemToToggle = state.listTemp.find(item => item.id === id);
+            const itemToToggle = state.labelCheckBox.find(item => item.id === id);
 
             if (itemToToggle) {
                 itemToToggle.completed = !itemToToggle.completed;
@@ -78,7 +82,8 @@ const newCardSliceReducer = createSlice({
             // const removeItem=state.listTemp.filter(item=>item.id !== id)
             // state.listTemp=removeItem
 
-            state.listTemp = state.listTemp.filter(item => item.id !== id)
+            // state.listTemp = state.listTemp.filter(item => item.id !== id)
+            state.labelCheckBox = state.labelCheckBox.filter(item => item.id !== id)
         },
         isFavoriteToggleAction(state, action) {
             // const id = action.payload
@@ -86,14 +91,16 @@ const newCardSliceReducer = createSlice({
         },
 
         createNewCardAction(state) {
-            state.listTemp = []
+            // state.listTemp = []
+            state.labelCheckBox = []
             state.textareaTemp = []
             state.labels = ["all"]
         },
         changeListTempValueAction(state, action) {
             const {id, title} = action.payload
             // debugger
-            state.listTemp.map(item => {
+            // state.listTemp.map(item => {
+            state.labelCheckBox.map(item => {
                 if (item.id === id) {
                     item.title = title
                 }
@@ -118,6 +125,10 @@ const newCardSliceReducer = createSlice({
             const label = action.payload;
             // debugger
             state.labels = state.labels.filter(item => item !== label)
+        },
+        NewCardDragAndDropAction(state,action){
+            // debugger
+            state.labelCheckBox=action.payload
         }
 
 
@@ -141,4 +152,5 @@ export const {
     changeTextareaTempValueAction,
     labelsAddAction,
     labelsRemoveAction,
+    NewCardDragAndDropAction,
 } = newCardSliceReducer.actions

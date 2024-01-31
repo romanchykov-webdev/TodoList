@@ -82,7 +82,6 @@ const authMiddleWare=require("../middleware/auth.middleware")
 
 router.get(
     '/auth', authMiddleWare,
-
     async (req, res) => {
         try {
             const user = await User.findOne({_id: req.user.id})
@@ -111,12 +110,12 @@ router.get(
 router.get('/todos', authMiddleWare,
     async (req, res) => {
     try {
-        // req.user содержит информацию о пользователе из токена
+
         const userId = await User.findOne({_id: req.user.id})
 
 
-        // Здесь вы можете использовать userId для запроса todos пользователя из базы данных
-        const user = await User.findById(userId).populate('todos'); // Предполагается, что есть поле 'todos' в вашей схеме
+
+        const user = await User.findById(userId).populate('todos');
 
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' });
@@ -135,20 +134,20 @@ router.post('/add-todos',authMiddleWare ,
     async (req, res) => {
     try {
 
-        const userId = req.body.userId; // Предполагается, что вы передаете идентификатор пользователя в теле запроса
-        const newTodos = req.body.newTodos; // Предполагается, что вы передаете массив новых объектов в теле запроса
+        const userId = req.body.userId;
+        const newTodos = req.body.newTodos;
 
-        // Находим пользователя по его идентификатору
+
         const user = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' });
         }
 
-        // Добавляем новые объекты в массив todos пользователя
+
         user.todos.push(...newTodos);
 
-        // Сохраняем изменения в базе данных
+
         await user.save();
 
         return res.json({ message: 'Массив объектов успешно добавлен в todos пользователя', user });
@@ -162,20 +161,20 @@ router.post('/add-todos',authMiddleWare ,
 // Добавление todo
 router.post('/add-todo', authMiddleWare, async (req, res) => {
     try {
-        const userId = req.user.id; // Получаем идентификатор пользователя из токена
-        const { newTodo } = req.body; // Получаем новый todo из тела запроса
+        const userId = req.user.id;
+        const { newTodo } = req.body;
 
-        // Находим пользователя по его идентификатору
+
         const user = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' });
         }
 
-        // Добавляем новый объект в массив todos пользователя
+
         user.todos.push(newTodo);
 
-        // Сохраняем изменения в базе данных
+
         await user.save();
 
         return res.json({ message: 'Объект успешно добавлен в массив todos пользователя', user });
@@ -187,8 +186,13 @@ router.post('/add-todo', authMiddleWare, async (req, res) => {
 
 router.post('/update-todo', authMiddleWare, async (req, res) => {
     try {
+        console.log(req.user);
         const userId = req.user.id;
         const { newTodo } = req.body;
+
+        if (!newTodo || typeof newTodo !== 'object' || !newTodo.id) {
+            return res.status(400).json({ message: 'Некорректный формат данных в запросе' });
+        }
 
         const user = await User.findById(userId);
 
@@ -206,6 +210,31 @@ router.post('/update-todo', authMiddleWare, async (req, res) => {
         await user.save();
 
         return res.json({ message: 'Объект успешно добавлен в массив todos пользователя', user });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Внутренняя ошибка сервера', error: error.message });
+    }
+});
+
+router.delete('/delete-todo/:todoId', authMiddleWare, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const todoId = req.params.todoId;
+
+        if (!todoId) {
+            return res.status(400).json({ message: 'Отсутствует идентификатор todo для удаления' });
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        user.todos = user.todos.filter(todo => todo.id !== todoId);
+        await user.save();
+
+        return res.json({ message: 'Объект успешно удален из массива todos пользователя', user });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Внутренняя ошибка сервера', error: error.message });

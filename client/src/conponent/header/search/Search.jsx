@@ -27,7 +27,7 @@ const Search = () => {
             // Check if item.title includes the search value
             return item.title.toLowerCase().includes(e.target.value.toLowerCase());
         });
-        console.log(searchTodo)
+        // console.log(searchTodo)
 
         // dispatch(addLabelSearch(e.target.value))
     }

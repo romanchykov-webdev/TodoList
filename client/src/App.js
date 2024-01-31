@@ -10,6 +10,7 @@ import Login from "./conponent/authRegis/Login";
 import Registration from "./conponent/authRegis/Registration";
 import {useEffect, useLayoutEffect} from "react";
 import {auth} from "./actions/user";
+import Footer from "./conponent/footer/Footer";
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
             )}
             <Route path="*" element={<Error404/>}/>
         </Routes>
+            <Footer/>
         </div>
     );
 }

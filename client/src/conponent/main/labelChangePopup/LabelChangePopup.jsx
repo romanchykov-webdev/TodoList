@@ -8,7 +8,8 @@ import {
 } from "./labelChangePopupSliceReducer";
 import {labelsAddAction, labelsRemoveAction} from "../newCard/newCardSliceReducer";
 import {bookmarkAddAction, bookmarkRemoveAction} from "../../../reducers/getSliceReducer";
-import {putTodos} from "../../../actions/todos";
+import {updateTodo} from "../../../actions/user";
+
 
 
 const LabelChangePopup = () => {
@@ -19,7 +20,7 @@ const LabelChangePopup = () => {
     // uniqueLabels
     const idItem = useSelector(state => state.labelPopupSlice.id)
 
-    console.log(idItem)
+    // console.log(idItem)
 
 
     const uniqueLabelsArray = useSelector(state => state.labelPopupSlice.labelsAllCards)
@@ -43,7 +44,7 @@ const LabelChangePopup = () => {
 
 
     function handlerAddLAbel() {
-        console.log(idItem)
+        // console.log(idItem)
         if (idItem === 'new') {
             dispatch(labelsAddAction(newLabel))
         } else {
@@ -54,7 +55,7 @@ const LabelChangePopup = () => {
     }
 
     function handlerRemoveLabel(item) {
-        console.log("handlerRemoveLabel")
+        // console.log("handlerRemoveLabel")
         if (idItem === 'new') {
 
             dispatch(labelsRemoveAction(item))
@@ -76,16 +77,16 @@ const LabelChangePopup = () => {
     }
 
     async function handlerClose(idItem) {
-        let newCard = {};
+        let newTodo = {};
         const foundItem = todos.find(item => item.id === idItem);
 
         if (foundItem) {
-            newCard = {...foundItem}; // copy  item
+            newTodo = {...foundItem}; // copy  item
             // console.log(newCard.id);
 
 
-            dispatch(putTodos({idItem, newCard}))
-
+            // dispatch(putTodos({idItem, newCard}))
+            dispatch(updateTodo(newTodo))
         }
         dispatch(labelTogglePopupAction(idItem))
 

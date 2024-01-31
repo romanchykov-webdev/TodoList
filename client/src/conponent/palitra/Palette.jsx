@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import s from './Palette.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {changeColorBackgroundAction} from "../../reducers/getSliceReducer";
-import {putTodos} from "../../actions/todos";
+// import {putTodos} from "../../actions/todos";
 import {newChangeColorBackgroundAction} from "../main/newCard/newCardSliceReducer";
+import {updateTodo} from "../../actions/user";
 
 
 const Palette = ({id, color,item}) => {
@@ -25,15 +26,15 @@ const Palette = ({id, color,item}) => {
 
 
     const handlerColor = (id) => {
-        console.log(palette)
-        console.log(id)
-        console.log(color)
+        // console.log(palette)
+        // console.log(id)
+        // console.log(color)
 
     }
 
 
     const handlerChangeColor=(id,color)=> {
-        console.log(id,color)
+        // console.log(id,color)
         if(id!=='new'){
 
             dispatch(changeColorBackgroundAction({id,color}))
@@ -46,8 +47,10 @@ const Palette = ({id, color,item}) => {
     function handlerClose() {
         setIsActive(false)
         if(id!=='new'){
-            console.log(item)
-            dispatch(putTodos({idItem:item.id,newCard:item}))
+            // console.log(item)
+            const newTodo={...item}
+            // dispatch(putTodos({idItem:item.id,newCard:item}))
+            dispatch(updateTodo(newTodo))
         }
     }
 

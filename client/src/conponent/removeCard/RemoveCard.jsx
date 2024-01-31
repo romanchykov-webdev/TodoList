@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './RemoveCard.module.scss'
 import {useDispatch} from "react-redux";
-import {removeCard} from "../../actions/todos";
+// import {removeCard} from "../../actions/todos";
+import {deleteTodo, updateTodo} from "../../actions/user";
 
 
 const RemoveCard = ({id}) => {
@@ -9,8 +10,9 @@ const RemoveCard = ({id}) => {
     const dispatch=useDispatch()
 
     const handlerRemoveCard= (id)=> {
-        console.log(id)
-        dispatch(removeCard(id))
+        // console.log(id)
+        // dispatch(removeCard(id))
+        dispatch(deleteTodo(id))
     }
 
     return (

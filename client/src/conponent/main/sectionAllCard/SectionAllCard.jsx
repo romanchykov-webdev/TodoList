@@ -23,13 +23,13 @@ const SectionAllCard = ({todos}) => {
             return item.label.some(i => i === searchFilterLabel);
         });
     if(isActiveSearch && searchFilterInput!==''){
-        console.log(searchFilterInput)
+        // console.log(searchFilterInput)
        searchTodo = todos.filter(item => {
             // Check if item.title includes the search value
             return item.title.toLowerCase().includes(searchFilterInput.toLowerCase());
         });
     }
-        console.log(searchTodo)
+        // console.log(searchTodo)
 
 
     return (

@@ -11,11 +11,10 @@ import Textarea from "./textarea/Textarea";
 import List from "./list/List";
 import {v4} from "uuid";
 
-import {postTodos} from "../../../actions/todos";
+// import {postTodos} from "../../../actions/todos";
 import {labelTogglePopupAction} from "../labelChangePopup/labelChangePopupSliceReducer";
 import Palette from "../../palitra/Palette";
-import axios from "axios";
-import {API_URLMongo} from "../../../config";
+
 import {addTodo} from "../../../actions/user";
 
 
@@ -32,7 +31,8 @@ const NewCard = () => {
 
 
 
-    const listTemp = useSelector(state => state.newCardSlice.listTemp)
+    // const listTemp = useSelector(state => state.newCardSlice.listTemp)
+    const listTemp = useSelector(state => state.newCardSlice.labelCheckBox)
     const textareaTemp = useSelector(state => state.newCardSlice.textareaTemp)
 
     const [headerInput, setHeaderInput] = useState('')
@@ -73,12 +73,12 @@ const NewCard = () => {
 
 
 
-        // dispatch(createNewCardAction())
-        // dispatch(newCardHiddenAction())
-        // setHeaderInput('')
-        // setMainTextarea('')
-        // setTextareaHeight('auto')
-        // dispatch(newChangeColorBackgroundAction('#fff'))
+        dispatch(createNewCardAction())
+        dispatch(newCardHiddenAction())
+        setHeaderInput('')
+        setMainTextarea('')
+        setTextareaHeight('auto')
+        dispatch(newChangeColorBackgroundAction('#fff'))
 
     }
 

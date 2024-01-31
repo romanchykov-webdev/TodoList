@@ -28,7 +28,7 @@ export const login = (email, password) => {
             })
             dispatch(isAuthUserAction(response.data.user))
             localStorage.setItem('token',response.data.token)
-            console.log(response.data)
+            // console.log(response.data)
 
         } catch (e) {
             alert(e.response.data.message)
@@ -51,7 +51,7 @@ export const auth = () => {
             dispatch(getColorsPaletteAction(response.data.user.colorsPalette))
             localStorage.setItem('token',response.data.token)
 
-            console.log(response.data)
+            // console.log(response.data)
 
         } catch (e) {
             alert(e.response.data.message)
@@ -68,7 +68,7 @@ export const addTodo = (newTodo) => {
     // debugger
     return async (dispatch) => {
         try {
-            // Посылаем POST запрос на сервер, чтобы добавить новый todo
+
             const response = await axios.post(
                 `${API_URLMongo}auth/add-todo`,
                 { newTodo },
@@ -79,13 +79,11 @@ export const addTodo = (newTodo) => {
                 }
             );
 
-            // Обновляем состояние приложения, если запрос успешен
-            dispatch(auth()); // Передавайте необходимые параметры, если ваш запрос getTodos требует их
+            dispatch(auth());
 
-            // Выводим сообщение об успешном добавлении
-            alert(response.data.message);
+
+            console.log(response.data.message);
         } catch (e) {
-            // Выводим ошибку, если запрос не удался
             alert(e.response.data.message);
         }
     };
@@ -95,16 +93,35 @@ export const addTodo = (newTodo) => {
 // Добавление PATCH
 
 export const updateTodo = (newTodo) => {
-    debugger
     return async (dispatch) => {
         try {
-            // Устанавливаем состояние загрузки
-            // dispatch(loaderOn);
+            // console.log(newTodo);
 
-            // Посылаем POST запрос на сервер, чтобы обновить todo
             const response = await axios.post(
                 `${API_URLMongo}auth/update-todo`,
-                { ...newTodo },
+                { newTodo },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            dispatch(auth());
+            // alert(response.data.message);
+        } catch (error) {
+                alert(`error: ${error.response.data.message}`);
+        }
+    };
+};
+
+
+export const deleteTodo = (todoId) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete(
+                `${API_URLMongo}auth/delete-todo/${todoId}`, // Переместите todoId в URL
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -112,17 +129,15 @@ export const updateTodo = (newTodo) => {
                 }
             );
 
-            // Обновляем состояние приложения, если запрос успешен
-            dispatch(auth()); // Передавайте необходимые параметры, если ваш запрос auth требует их
+            dispatch(auth());
 
-            // Выводим сообщение об успешном обновлении
-            alert(response.data.message);
-
-            // dispatch(loaderOff);
-        } catch (e) {
-            // Выводим ошибку, если запрос не удался
-            alert(e.response.data);
-
+            if (response?.data) {
+                console.error(response.data.message);
+            } else {
+                console.error('Ответ от сервера не содержит ожидаемых данных');
+            }
+        } catch (error) {
+            alert(`Ошибка: ${error.response?.data?.message || 'Не удалось выполнить запрос'}`);
         }
     };
 };

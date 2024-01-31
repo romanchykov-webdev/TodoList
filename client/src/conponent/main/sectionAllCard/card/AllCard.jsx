@@ -10,6 +10,7 @@ import RemoveCard from "../../../removeCard/RemoveCard";
 import List from "../../newCard/list/List";
 import {bookmarkAddAction, bookmarkRemoveAction, dragAndDropAction} from "../../../../reducers/getSliceReducer";
 import {removeLabelAction} from "../../labelChangePopup/labelChangePopupSliceReducer";
+import {updateTodo} from "../../../../actions/user";
 
 
 const AllCard = ({item,isSectionFavorite=[]}) => {
@@ -34,7 +35,7 @@ const AllCard = ({item,isSectionFavorite=[]}) => {
 
     function handlerChangeTextTextarea(e) {
         setItemTextarea(e.target.value)
-        const newCard = {
+        const newTodo = {
             ...item,
             textareaCheckBox: e.target.value
         }
@@ -45,7 +46,8 @@ const AllCard = ({item,isSectionFavorite=[]}) => {
         }
         setWriteTimeout(
             setTimeout((value) => {
-                dispatch(putTodos({idItem: item.id, newCard: newCard}))
+                // dispatch(putTodos({idItem: item.id, newCard: newCard}))
+                dispatch(updateTodo(newTodo))
                 console.log("putTodos textarea")
             }, 1000, e.target.value)
         )
@@ -57,7 +59,7 @@ const AllCard = ({item,isSectionFavorite=[]}) => {
 
     function handlerChangeName(e) {
         setNameCard(e.target.value)
-        const newCard = {
+        const newTodo = {
             ...item,
             title: e.target.value
         }
@@ -69,7 +71,8 @@ const AllCard = ({item,isSectionFavorite=[]}) => {
         setWriteTimeout(
             setTimeout((value) => {
 
-                dispatch(putTodos({idItem: item.id, newCard: newCard}))
+                // dispatch(putTodos({idItem: item.id, newCard: newCard}))
+                dispatch(updateTodo(newTodo))
                 // console.log("setWriteTimeout changeName card")
                 // console.log(newCard)
             }, 1000, e.target.value)
@@ -81,10 +84,11 @@ const AllCard = ({item,isSectionFavorite=[]}) => {
 
 
     function handlerRemoveLabel(itemLabel) {
-        const newCard = { ...item,label: item.label.filter(i => i !== itemLabel) };
+        const newTodo = { ...item,label: item.label.filter(i => i !== itemLabel) };
 
 
-        dispatch(putTodos({idItem:item.id, newCard: newCard}))
+        // dispatch(putTodos({idItem:item.id, newCard: newCard}))
+        dispatch(updateTodo(newTodo))
     }
 
     return (

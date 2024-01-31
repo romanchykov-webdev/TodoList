@@ -7,6 +7,7 @@ import {
     removeListTempItemAction
 } from "../../newCardSliceReducer";
 import {putTodos} from "../../../../../actions/todos";
+import {updateTodo} from "../../../../../actions/user";
 
 
 const ListCompleted = ({item, itemTodo, dragStart, onDrop,isSectionFavorite=[]}) => {
@@ -15,7 +16,7 @@ const ListCompleted = ({item, itemTodo, dragStart, onDrop,isSectionFavorite=[]})
     const [changeValue, setChangeValue] = useState('')
     useEffect(() => {
         setChangeValue(item.title)
-        console.log("change item")
+        // console.log("change item")
     }, [item.title]);
 
     const [writeTimeout, setWriteTimeout] = useState(false)
@@ -57,13 +58,14 @@ const ListCompleted = ({item, itemTodo, dragStart, onDrop,isSectionFavorite=[]})
         dispatch(removeListTempItemAction(id))
         // console.log(id)
         if (Object.keys(itemTodo).length > 0) {
-            const newCard = {
+            const newTodo = {
                 ...itemTodo,
                 labelCheckBox: itemTodo.labelCheckBox.filter(i => i.id !== id)
             }
             // console.log(newCard)
-            console.log("handlerRemoveItem")
-            dispatch(putTodos({idItem: itemTodo.id, newCard: newCard}))
+            // console.log("handlerRemoveItem")
+            // dispatch(putTodos({idItem: itemTodo.id, newCard: newCard}))
+            dispatch(updateTodo(newTodo))
         }
 
 
@@ -75,7 +77,7 @@ const ListCompleted = ({item, itemTodo, dragStart, onDrop,isSectionFavorite=[]})
         console.log(itemTodo)
 
         if (Object.keys(itemTodo).length > 0) {
-            const newCard = {
+            const newTodo = {
                 ...itemTodo,
                 labelCheckBox: itemTodo.labelCheckBox.map(i => {
                     if (i.id === item.id) {
@@ -85,8 +87,9 @@ const ListCompleted = ({item, itemTodo, dragStart, onDrop,isSectionFavorite=[]})
                 })
             }
             // console.log(newCard)
-            console.log("handlerCompleted")
-            dispatch(putTodos({idItem: itemTodo.id, newCard: newCard}))
+            // console.log("handlerCompleted")
+            // dispatch(putTodos({idItem: itemTodo.id, newCard: newCard}))
+            dispatch(updateTodo(newTodo))
         }
 
     }

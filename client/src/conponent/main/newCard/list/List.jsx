@@ -3,9 +3,10 @@ import s from './List.module.scss'
 import {v4} from "uuid";
 import ListCompleted from "./listCompleted/ListCompleted";
 import {useDispatch, useSelector} from "react-redux";
-import {listTempPushAction} from "../newCardSliceReducer";
-import {putTodos} from "../../../../actions/todos";
+import {listTempPushAction, NewCardDragAndDropAction} from "../newCardSliceReducer";
+// import {putTodos} from "../../../../actions/todos";
 import dragAndDropAction from "../../../../actions/dargAndDrop";
+import {updateTodo} from "../../../../actions/user";
 
 
 const List = ({itemTodo=[], isSectionFavorite=[]}) => {
@@ -14,10 +15,13 @@ const List = ({itemTodo=[], isSectionFavorite=[]}) => {
 
     const dispatch = useDispatch()
 
-     let   listArray = useSelector(state => state.newCardSlice.listTemp);
+     // let   listArray = useSelector(state => state.newCardSlice.listTemp);
+     let   listArray = useSelector(state => state.newCardSlice.labelCheckBox);
+     let   newCardSlice = useSelector(state => state.newCardSlice);
 
 if(Object.keys(itemTodo).length > 0){
     listArray=itemTodo.labelCheckBox
+    // console.log(listArray)
 }
 
 
@@ -49,15 +53,16 @@ if(Object.keys(itemTodo).length > 0){
                 // setMockArray(prevMockArray => [...prevMockArray, newItem])
                 // console.log(mockArray)
                 if(Object.keys(itemTodo).length > 0){
-                    console.log("itemTodo.id"+itemTodo.id)
-                    console.log(itemTodo.labelCheckBox)
+                    // console.log("itemTodo.id"+itemTodo.id)
+                    // console.log(itemTodo.labelCheckBox)
 
-                    const newCard= {
+                    const newTodo= {
                         ...itemTodo,
                         labelCheckBox: [...itemTodo.labelCheckBox, newItem]
                     }
-                    console.log(newCard)
-                    dispatch(putTodos({idItem:itemTodo.id,newCard:newCard}))
+                    // console.log(newTodo)
+                    // dispatch(putTodos({idItem:itemTodo.id,newCard:newCard}))
+                    dispatch(updateTodo(newTodo))
                 }else{
                     dispatch(listTempPushAction({newItem}))
                 }
@@ -92,19 +97,35 @@ const [dragStartItem,setDragStartItem]=useState(null)
 
     function onDrop(item) {
 
+        // console.log(itemTodo)
+        // console.log(item)
+        // console.log(itemTodo.length===0)
+        const isNewCard=itemTodo.length===0
+        if(itemTodo.length===0){
+            itemTodo={...newCardSlice}
+            // console.log(itemTodo)
+        }
         // parentItem, dragLabel, dropLabel
-        const newCard=dragAndDropAction({
+        const newTodo=dragAndDropAction({
             parentItem:itemTodo,
             dragLabel:dragStartItem,
             dropLabel:item
         })
+
         // console.log('ondrop')
-        // console.log(item)
-        // console.log(itemTodo);
+        // console.log(newTodo);
         // console.log(newCard);
 
 
-        dispatch(putTodos({idItem:newCard.id, newCard:newCard}))
+        // dispatch(putTodos({idItem:newCard.id, newCard:newCard}))
+      if(!isNewCard){
+          // console.log('dispatch(updateTodo(newTodo))');
+          dispatch(updateTodo(newTodo))
+      }else {
+          dispatch(NewCardDragAndDropAction(newTodo.labelCheckBox))
+      }
+
+
     }
 
 
