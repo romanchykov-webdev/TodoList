@@ -1,5 +1,9 @@
 const Router = require("express")
 const User = require("../models/Users")
+const path = require('path');
+const fileUpload = require('express-fileupload');
+// const fs = require("fs");
+// const Uuid = require("uuid");
 const router = new Router()
 const bcrypt = require('bcrypt');
 const {check, validationResult} = require("express-validator")
@@ -79,6 +83,8 @@ router.post('/login',
 
 // is auth
 const authMiddleWare=require("../middleware/auth.middleware")
+const Uuid = require("uuid");
+const fs = require("fs");
 
 router.get(
     '/auth', authMiddleWare,
@@ -240,5 +246,63 @@ router.delete('/delete-todo/:todoId', authMiddleWare, async (req, res) => {
         return res.status(500).json({ message: 'Внутренняя ошибка сервера', error: error.message });
     }
 });
+
+
+// Загрузка аватара
+router.use(fileUpload());
+router.post('/avatar', authMiddleWare, async (req, res) => {
+    try {
+        console.log(req.user);
+
+        const file = req.files.file;
+        const user = await User.findById(req.user.id);
+
+        // delete old avatar
+        if (user.avatar) {
+            const oldAvatarPath = path.join(config.get('staticPath'), user.avatar);
+            fs.unlinkSync(oldAvatarPath);
+        }
+
+        const modifiedEmail = user.email.replace(/[@.]/g, '-');
+        const avatarName = modifiedEmail + '-' + Uuid.v4() + '.jpg';
+
+        console.log('file:', file);
+        console.log('user:', user);
+        console.log('avatarName:', avatarName);
+
+        file.mv(config.get('staticPath') + "\\" + avatarName);
+        user.avatar = avatarName;
+        await user.save();
+        return res.json(user);
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ message: 'Upload avatar error' });
+    }
+});
+
+// Удаление аватара
+router.delete('/avatar', authMiddleWare, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user || !user.avatar) {
+            return res.status(404).json({ message: 'User or avatar not found' });
+        }
+
+
+        const avatarPath = path.join(config.get('staticPath'), user.avatar);
+        fs.unlinkSync(avatarPath);
+
+
+        user.avatar = null;
+        await user.save();
+
+        return res.json({ message: 'Avatar deleted successfully', user });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error deleting avatar', error: error.message });
+    }
+});
+
 
 module.exports = router;

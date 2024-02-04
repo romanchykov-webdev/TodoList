@@ -7,6 +7,7 @@ const userSliceReducer=createSlice({
         currentUser:{},
         isAuth:false,
         isVisiblePassword:false
+
     },
     reducers:{
         toggleIsVisiblePasswordAction(state){

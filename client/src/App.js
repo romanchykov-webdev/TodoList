@@ -11,6 +11,7 @@ import Registration from "./conponent/authRegis/Registration";
 import {useEffect, useLayoutEffect} from "react";
 import {auth} from "./actions/user";
 import Footer from "./conponent/footer/Footer";
+import Profile from "./conponent/profile/Profile";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
                     <Route path="*" element={<Login/>}/>
                 </>
             ) : (
+                <>
                 <Route path="/*" element={
                     <>
                         {isActiveLabelPopup && <LabelChangePopup/>}
@@ -45,6 +47,10 @@ function App() {
                         <Main/>
                     </>
                 }/>
+                <Route path="/profile" element={
+                    <Profile/>
+                }/>
+                </>
             )}
             <Route path="*" element={<Error404/>}/>
         </Routes>

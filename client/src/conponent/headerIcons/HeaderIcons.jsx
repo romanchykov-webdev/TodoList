@@ -68,7 +68,9 @@ const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) =
 
 
 
-            <span className={s.favorites} onClick={() => handlerFavorite(item)}>
+            <span
+                title={'add favorite'}
+                className={s.favorites} onClick={() => handlerFavorite(item)}>
                 <svg
 
                             width="24" height="24" viewBox="0 0 24 24">
@@ -77,7 +79,8 @@ const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) =
                                   d="M17 4v7l2 3v2h-6v5l-1 1-1-1v-5H5v-2l2-3V4c0-1.1.9-2 2-2h6c1.11 0 2 .89 2 2zM9 4v7.75L7.5 14h9L15 11.75V4H9z"/>
                         </svg>
                     </span>
-            <span className={s.bookmark} onClick={() => handlerBookmark(item)}>
+            <span title={'bookmark'}
+                className={s.bookmark} onClick={() => handlerBookmark(item)}>
                 <svg x="0px" y="0px" viewBox="0 0 48 48"><path fill="#000"
                                                                d="M37,43l-13-6l-13,6V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4V43z"></path></svg>
                 <span className={s.quantityLabels}>
@@ -90,7 +93,9 @@ const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) =
             >
                 {
                     isBigWindow
-                        ? <span onClick={() => handlerToSmallCard(item)} >
+                        ? <span
+                        title={'Small card'}
+                            onClick={() => handlerToSmallCard(item)} >
 
                             <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none">
                             <path
@@ -104,7 +109,9 @@ const HeaderIcons = ({item, isFavorite, quantityLabels, id,isSectionFavorite}) =
                                 fill="#000000"/>
                             </svg>
                         </span>
-                        : <span onClick={() => handlerToBigCard(item)}>
+                        : <span
+                            title={'Big card'}
+                            onClick={() => handlerToBigCard(item)}>
                               <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M18 20.75H12C11.8011 20.75 11.6103 20.671 11.4697 20.5303C11.329 20.3897 11.25 20.1989 11.25 20C11.25 19.8011 11.329 19.6103 11.4697 19.4697C11.6103 19.329 11.8011 19.25 12 19.25H18C18.3315 19.25 18.6495 19.1183 18.8839 18.8839C19.1183 18.6495 19.25 18.3315 19.25 18V6C19.25 5.66848 19.1183 5.35054 18.8839 5.11612C18.6495 4.8817 18.3315 4.75 18 4.75H6C5.66848 4.75 5.35054 4.8817 5.11612 5.11612C4.8817 5.35054 4.75 5.66848 4.75 6V12C4.75 12.1989 4.67098 12.3897 4.53033 12.5303C4.38968 12.671 4.19891 12.75 4 12.75C3.80109 12.75 3.61032 12.671 3.46967 12.5303C3.32902 12.3897 3.25 12.1989 3.25 12V6C3.25 5.27065 3.53973 4.57118 4.05546 4.05546C4.57118 3.53973 5.27065 3.25 6 3.25H18C18.7293 3.25 19.4288 3.53973 19.9445 4.05546C20.4603 4.57118 20.75 5.27065 20.75 6V18C20.75 18.7293 20.4603 19.4288 19.9445 19.9445C19.4288 20.4603 18.7293 20.75 18 20.75Z"

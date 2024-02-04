@@ -6,3 +6,6 @@
 6) npm i jsonwebtoken
 
 secretkey:znARz2ezz6PteZWoFGntwpTsNX8c8TAmmnuqwKcRnQMVwxNXRrez1YRM9rLDqjOc
+
+7)npm i file-system
+6) npm i uuid

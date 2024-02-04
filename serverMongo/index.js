@@ -15,6 +15,9 @@ app.use(express.json())
 app.use("/api/auth", authRouter)
 
 // auth
+// for avatar
+app.use(express.static('static'))
+// for avatar
 
 const start= async ()=>{
     try{

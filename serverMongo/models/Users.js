@@ -24,7 +24,7 @@ const TodoSchema = new Schema({
 const User = new Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    avatar: {type: String},
+    avatar: {type: String,default:null},
     colorsPalette: {
         type: Array,
         default: ["#fff", "#faafa8", "#f39f76", "#fff8b8", "#e2f6d3", "#b4ddd3", "#efeff1", "#aeccdc", "#d3bfdb", "#f6e2dd", "#e9e3d4", "#e9e3d5"]

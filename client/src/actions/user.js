@@ -1,13 +1,13 @@
 import axios from "axios";
 import {API_URLMongo} from "../config";
-import {isAuthUserAction} from "../conponent/authRegis/userSliceReducer";
+import {addAvatarAction, isAuthUserAction} from "../conponent/authRegis/userSliceReducer";
 import {getColorsPaletteAction, getTodosAction} from "../reducers/getSliceReducer";
 import {getTodos} from "./todos";
 
 // registration
 export const registration = async (email, password) => {
     try {
-        const response = await axios.post(`${API_URLMongo}auth/registration`, {
+        const response = await axios.post(`${API_URLMongo}api/auth/registration`, {
             email,
             password
         })
@@ -22,7 +22,7 @@ export const registration = async (email, password) => {
 export const login = (email, password) => {
     return async dispatch => {
         try {
-            const response = await axios.post(`${API_URLMongo}auth/login`, {
+            const response = await axios.post(`${API_URLMongo}api/auth/login`, {
                 email,
                 password
             })
@@ -43,7 +43,7 @@ export const auth = () => {
     return async dispatch => {
         try {
 
-            const response =await axios.get(`${API_URLMongo}auth/auth`, {
+            const response =await axios.get(`${API_URLMongo}api/auth/auth`, {
                 headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
             })
             dispatch(isAuthUserAction(response.data.user))
@@ -70,7 +70,7 @@ export const addTodo = (newTodo) => {
         try {
 
             const response = await axios.post(
-                `${API_URLMongo}auth/add-todo`,
+                `${API_URLMongo}api/auth/add-todo`,
                 { newTodo },
                 {
                     headers: {
@@ -98,7 +98,7 @@ export const updateTodo = (newTodo) => {
             // console.log(newTodo);
 
             const response = await axios.post(
-                `${API_URLMongo}auth/update-todo`,
+                `${API_URLMongo}api/auth/update-todo`,
                 { newTodo },
                 {
                     headers: {
@@ -121,7 +121,7 @@ export const deleteTodo = (todoId) => {
     return async (dispatch) => {
         try {
             const response = await axios.delete(
-                `${API_URLMongo}auth/delete-todo/${todoId}`, // Переместите todoId в URL
+                `${API_URLMongo}api/auth/delete-todo/${todoId}`, // Переместите todoId в URL
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -138,6 +138,55 @@ export const deleteTodo = (todoId) => {
             }
         } catch (error) {
             alert(`Ошибка: ${error.response?.data?.message || 'Не удалось выполнить запрос'}`);
+        }
+    };
+};
+
+// avatar
+export const addAvatar = (file) => {
+    return async (dispatch) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await axios.post(
+                `${API_URLMongo}api/auth/avatar`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+
+            dispatch(auth());
+
+            console.log(response?.data?.message);
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        }
+    };
+};
+
+
+export const deleteAvatar = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete(
+                `${API_URLMongo}api/auth/avatar`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+
+            dispatch(auth());
+
+            console.log(response?.data?.message);
+        } catch (e) {
+            console.log(e.response?.data?.message);
         }
     };
 };
