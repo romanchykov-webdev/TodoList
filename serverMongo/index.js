@@ -3,11 +3,15 @@ const mongoose=require("mongoose")
 const config=require("config")
 
 const app=express()
-const PORT= config.get("serverPort")
+const PORT= process.env.PORT || config.get("serverPort")
 // console.log(PORT)
 
 const corsMiddleWare=require("./middleware/cors.middleware")
 app.use(corsMiddleWare)
+
+const filePathMiddleware=require("./middleware/filepath.middleware")
+const  path = require('path')
+app.use(filePathMiddleware(path.resolve(__dirname,'files')))
 
 // auth
 const authRouter=require("./routes/auth.routes")
