@@ -1,8 +1,8 @@
 import axios from "axios";
 import {API_URLMongo} from "../config";
-import {addAvatarAction, isAuthUserAction} from "../conponent/authRegis/userSliceReducer";
+import { isAuthUserAction} from "../conponent/authRegis/userSliceReducer";
 import {getColorsPaletteAction, getTodosAction} from "../reducers/getSliceReducer";
-import {getTodos} from "./todos";
+
 
 // registration
 export const registration = async (email, password) => {
