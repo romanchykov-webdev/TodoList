@@ -5,7 +5,7 @@ const fileUpload = require('express-fileupload');
 // const fs = require("fs");
 // const Uuid = require("uuid");
 const router = new Router()
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const {check, validationResult} = require("express-validator")
 const config = require("config")
 
