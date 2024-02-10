@@ -1,3 +1,11 @@
+
+const chalk = require('chalk');
+
+const errorMsg = chalk.bgKeyword('red').whiteBright
+const successMsg = chalk.bgKeyword('white').greenBright
+
+require('dotenv').config()
+
 const express = require("express")
 const mongoose=require("mongoose")
 const config=require("config")
@@ -5,6 +13,8 @@ const config=require("config")
 const app=express()
 const PORT= process.env.PORT || config.get("serverPort")
 // console.log(PORT)
+
+
 
 const corsMiddleWare=require("./middleware/cors.middleware")
 app.use(corsMiddleWare)
@@ -26,13 +36,13 @@ app.use(express.static('static'))
 const start= async ()=>{
     try{
 
-        await mongoose.connect(config.get("dbUrl"))
+        await mongoose.connect(process.env.MONGO_URL || config.get("dbUrl"))
 
         app.listen(PORT, ()=>{
-            console.log("Server started on port: ", PORT)
+            console.log(successMsg("Server started on port: ", PORT))
         })
     }catch (e){
-
+        console.log(errorMsg(e))
     }
 }
 start()
