@@ -11,7 +11,8 @@ const config = require("config")
 
 const jwt = require('jsonwebtoken');
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY || config.get("secretKey")
+// const PRIVATE_KEY = process.env.PRIVATE_KEY || config.get("secretKey")
+const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 // registration
 router.post('/registration',

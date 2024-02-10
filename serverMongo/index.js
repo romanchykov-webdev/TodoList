@@ -11,7 +11,10 @@ const mongoose=require("mongoose")
 const config=require("config")
 
 const app=express()
-const PORT= process.env.PORT || config.get("serverPort")
+// const PORT= process.env.PORT || config.get("serverPort")
+const PORT= process.env.PORT
+// const MONGO_URL= process.env.MONGO_URL || config.get("dbUrl")
+const MONGO_URL= process.env.MONGO_URL
 // console.log(PORT)
 
 
@@ -36,7 +39,7 @@ app.use(express.static('static'))
 const start= async ()=>{
     try{
 
-        await mongoose.connect(process.env.MONGO_URL || config.get("dbUrl"))
+        await mongoose.connect(MONGO_URL)
 
         app.listen(PORT, ()=>{
             console.log(successMsg("Server started on port: ", PORT))
