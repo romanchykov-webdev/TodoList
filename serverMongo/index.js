@@ -1,33 +1,42 @@
 const path = require('path');
-const express = require('express');
-const mongoose = require('mongoose');
-const config = require('config');
-const chalk = require('chalk');
 const dotenv = require('dotenv');
+const chalk = require('chalk');
+
+const errorMsg = chalk.bgKeyword('red').whiteBright;
+const successMsg = chalk.bgKeyword('white').greenBright;
+
+const express = require("express");
+const mongoose = require("mongoose");
+const config = require("config");
 
 const app = express();
-
-// Установка переменной окружения для пути к файлу конфигурации
 dotenv.config({ path: '.env' });
-
-// Порт и URL для MongoDB должны браться из переменных окружения или файла конфигурации
 const PORT = process.env.PORT
 const MONGO_URL = process.env.MONGO_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
-// Остальные настройки сервера...
+const corsMiddleWare = require("./middleware/cors.middleware");
+app.use(corsMiddleWare);
 
-// Запуск сервера
+const filePathMiddleware = require("./middleware/filepath.middleware");
+app.use(filePathMiddleware(path.resolve(__dirname, 'files')));
+
+const authRouter = require("./routes/auth.routes");
+app.use(express.json());
+app.use("/api/auth", authRouter);
+
+app.use(express.static('static'));
+
 const start = async () => {
     try {
         await mongoose.connect(MONGO_URL);
         app.listen(PORT, () => {
-            console.log(chalk.greenBright(`Server started on port: ${PORT}`));
-            console.log(chalk.greenBright(`MongoDB connected at: ${MONGO_URL}`));
-            console.log(chalk.greenBright(`Private key: ${PRIVATE_KEY}`));
+            console.log(successMsg("Server started on port: ", PORT));
+            console.log(successMsg("Server started on MONGO_URL: ", MONGO_URL));
+            console.log(successMsg("Server started on PRIVATE_KEY: ", PRIVATE_KEY));
         });
     } catch (e) {
-        console.log(chalk.redBright(e));
+        console.log(errorMsg(e));
     }
 };
 
