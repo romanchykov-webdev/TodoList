@@ -12,13 +12,15 @@ const config=require("config")
 
 const app=express()
 // const PORT= process.env.PORT || config.get("serverPort")
-const PORT= process.env.PORT
+// const PORT= process.env.PORT
 // const MONGO_URL= process.env.MONGO_URL || config.get("dbUrl")
-const MONGO_URL= process.env.MONGO_URL
-const PRIVATE_KEY= process.env.PRIVATE_KEY
+// const MONGO_URL= process.env.MONGO_URL
+// const PRIVATE_KEY= process.env.PRIVATE_KEY
 // console.log(PORT)
 
-
+const PORT="5000"
+const MONGO_URL="mongodb+srv://romanchykovserhii:42FrOMxEyH0kj62l@cluster0.spfbgsw.mongodb.net/Cluster0?retryWrites=true&w=majority"
+const PRIVATE_KEY="roman-secret-key"
 
 const corsMiddleWare=require("./middleware/cors.middleware")
 app.use(corsMiddleWare)
