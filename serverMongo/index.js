@@ -15,6 +15,7 @@ const app=express()
 const PORT= process.env.PORT
 // const MONGO_URL= process.env.MONGO_URL || config.get("dbUrl")
 const MONGO_URL= process.env.MONGO_URL
+const PRIVATE_KEY= process.env.PRIVATE_KEY
 // console.log(PORT)
 
 
@@ -43,6 +44,8 @@ const start= async ()=>{
 
         app.listen(PORT, ()=>{
             console.log(successMsg("Server started on port: ", PORT))
+            console.log(successMsg("Server started on MONGO_URL: ", MONGO_URL))
+            console.log(successMsg("Server started on PRIVATE_KEY: ", PRIVATE_KEY))
         })
     }catch (e){
         console.log(errorMsg(e))

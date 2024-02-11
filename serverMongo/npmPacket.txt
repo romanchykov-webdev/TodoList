@@ -9,3 +9,107 @@ secretkey:znARz2ezz6PteZWoFGntwpTsNX8c8TAmmnuqwKcRnQMVwxNXRrez1YRM9rLDqjOc
 
 7)npm i file-system
 6) npm i uuid
+
+)mongoDb api key-   JLK6lNR7Smn1x4ZMR6izZUV2Su9MEfRukBzlYY10vQPSRZeuCzdxjWGMf2iLhMCV
+
+name: todoList
+apiKey: 73M02xQSZqtUIxGXjWGtRtKJXnHZlwL7oF4ovWEqFUc12YNLIQ4CWWWV7ECmMTVs
+
+//
+curl --location --request POST 'https://eu-central-1.aws.data.mongodb-api.com/app/data-tclyv/endpoint/data/v1/action/findOne' \
+--header 'Content-Type: application/json' \
+--header 'Access-Control-Request-Headers: *' \
+--header 'api-key: X8JsKsjsYMmAANCi8FIHy5jILjXqQziEgJW5OQYboEjw7ysGE0Be65QAMki6QiBx' \
+--data-raw '{
+    "dataSource":"Cluster0",
+    "database":"Cluster0",
+    "collection":"users",
+    "projection": {"_id": 1}
+}'
+
+
+//
+var axios = require('axios');
+var data = JSON.stringify({
+    "collection": "users",
+    "database": "Cluster0",
+    "dataSource": "Cluster0",
+    "projection": {
+        "_id": 1
+    }
+});
+
+var config = {
+    method: 'post',
+    url: 'https://eu-central-1.aws.data.mongodb-api.com/app/data-tclyv/endpoint/data/v1/action/findOne',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Request-Headers': '*',
+      'api-key': 'X8JsKsjsYMmAANCi8FIHy5jILjXqQziEgJW5OQYboEjw7ysGE0Be65QAMki6QiBx',
+    },
+    data: data
+};
+
+axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+
+////////
+curl --location --request POST 'https://eu-central-1.aws.data.mongodb-api.com/app/data-tclyv/endpoint/data/v1/action/findOne' \
+--header 'Content-Type: application/json' \
+--header 'Access-Control-Request-Headers: *' \
+--header 'api-key: G7kyUdFdqxLZSrFFbw2GQzFSP94EmrUXCzhMyoCpGoB96WaZvmsNRyvJbqYNGn6R' \
+--data-raw '{
+    "collection":"users",
+    "database":"Cluster0",
+    "dataSource":"Cluster0",
+    "query": {
+            "_id": "65bf8960715319ebe19dc84c"
+        }
+}'
+///////////////////////
+name:   romanchykov.serhii@gmail.com
+password :LcWBGd4CAABhL41Q
+
+
+curl -X POST 'https://realm.mongodb.com/api/client/v2.0/app/data-tclyv/auth/providers/local-userpass/login' --header 'Content-Type: application/json' --data-raw '{
+  "username": "romanchykov.serhii@gmail.com",
+  "password": "LcWBGd4CAABhL41Q"
+}'
+
+
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiYWFzX2RldmljZV9pZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImJhYXNfZG9t
+YWluX2lkIjoiNjViNjgxODRlYmNkYzQ4MjNiNWRhYTA1IiwiZXhwIjoxNzA3NjYxMjEyLCJpYXQiOjE3MDc2NTk0MTIsImlzcyI6IjY1YzhkMDk0ZmFkZGY0Y2ExNm
+U5NDNjNyIsInN0aXRjaF9kZXZJZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsInN0aXRjaF9kb21haW5JZCI6IjY1YjY4MTg0ZWJjZGM0ODIzYjVkYWEwNSIs
+InN1YiI6IjY1YzhjMGFlOTVkZjE2YzMzMzZhMDk1MiIsInR5cCI6ImFjY2VzcyJ9.gfTRhcWF8uZWlQ-UrIV6oL_buYWghVT47ay6rl1UTI4","refresh_token":
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiYWFzX2RhdGEiOm51bGwsImJhYXNfZGV2aWNlX2lkIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwiYmFh
+c19kb21haW5faWQiOiI2NWI2ODE4NGViY2RjNDgyM2I1ZGFhMDUiLCJiYWFzX2lkIjoiNjVjOGQwOTRmYWRkZjRjYTE2ZTk0M2M3IiwiYmFhc19pZGVudGl0eSI6ey
+JpZCI6IjY1YzhjMGFkOTVkZjE2YzMzMzZhMDk1MCIsInByb3ZpZGVyX3R5cGUiOiJsb2NhbC11c2VycGFzcyIsInByb3ZpZGVyX2lkIjoiNjViNjgxOGJlYmNkYzQ4
+MjNiNWRkMWExIn0sImV4cCI6MTcxMjg0MzQxMiwiaWF0IjoxNzA3NjU5NDEyLCJzdGl0Y2hfZGF0YSI6bnVsbCwic3RpdGNoX2RldklkIjoiMDAwMDAwMDAwMDAwMD
+Iiwic3RpdGNoX2lkZW50Ijp7ImlkIjoiNjVjOGMwYWQ5NWRmMTZjMzMzNmEwOTUwIiwicHJvdmlkZXJfdHlwZSI6ImxvY2FsLXVzZXJwYXNzIiwicHJvdmlkZXJfaW
+QiOiI2NWI2ODE4YmViY2RjNDgyM2I1ZGQxYTEifSwic3ViIjoiNjVjOGMwYWU5NWRmMTZjMzMzNmEwOTUyIiwidHlwIjoicmVmcmVzaCJ9.mN3FG4TM85AUqNdRe6g
+ltI6J3Wi3j1iJCrt_IN2JwTc","user_id":"65c8c0ae95df16c3336a0952","device_id":"000000000000000000000000"}
+Serhii@WIN-MJRIQ79DIUL MINGW64 /e/FrontEnd/TodoList (main)
+$
+$ curl -X POST 'https://realm.mongodb.com/api/client/v2.0/app/data-tclyv/auth/providers/local-userpass/login' --header 'Conten
+t-Type: application/json' --data-raw '{
+>   "username": "romanchykov.serhii@gmail.com",
+>   "password": "LcWBGd4CAABhL41Q"
+> }'
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiYWFzX2RldmljZV9pZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImJhYXNfZG9t
+YWluX2lkIjoiNjViNjgxODRlYmNkYzQ4MjNiNWRhYTA1IiwiZXhwIjoxNzA3NjY0NDQzLCJpYXQiOjE3MDc2NjI2NDMsImlzcyI6IjY1YzhkZDMzZmFkZGY0Y2ExNj
+I2M2ZkYyIsInN0aXRjaF9kZXZJZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsInN0aXRjaF9kb21haW5JZCI6IjY1YjY4MTg0ZWJjZGM0ODIzYjVkYWEwNSIs
+InN1YiI6IjY1YzhjMGFlOTVkZjE2YzMzMzZhMDk1MiIsInR5cCI6ImFjY2VzcyJ9.RY6XMedsztTINYmofyOau1cZJMkxVRa5RvCIoGoyvGg","refresh_token":
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiYWFzX2RhdGEiOm51bGwsImJhYXNfZGV2aWNlX2lkIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwiYmFh
+c19kb21haW5faWQiOiI2NWI2ODE4NGViY2RjNDgyM2I1ZGFhMDUiLCJiYWFzX2lkIjoiNjVjOGRkMzNmYWRkZjRjYTE2MjYzZmRjIiwiYmFhc19pZGVudGl0eSI6ey
+JpZCI6IjY1YzhjMGFkOTVkZjE2YzMzMzZhMDk1MCIsInByb3ZpZGVyX3R5cGUiOiJsb2NhbC11c2VycGFzcyIsInByb3ZpZGVyX2lkIjoiNjViNjgxOGJlYmNkYzQ4
+MjNiNWRkMWExIn0sImV4cCI6MTcxMjg0NjY0MywiaWF0IjoxNzA3NjYyNjQzLCJzdGl0Y2hfZGF0YSI6bnVsbCwic3RpdGNoX2RldklkIjoiMDAwMDAwMDAwMDAwMD
+AwMDAwMDAwMDAwIiwic3RpdGNoX2RvbWFpbklkIjoiNjViNjgxODRlYmNkYzQ4MjNiNWRhYTA1Iiwic3RpdGNoX2lkIjoiNjVjOGRkMzNmYWRkZjRjYTE2MjYzZmRj
+Iiwic3RpdGNoX2lkZW50Ijp7ImlkIjoiNjVjOGMwYWQ5NWRmMTZjMzMzNmEwOTUwIiwicHJvdmlkZXJfdHlwZSI6ImxvY2FsLXVzZXJwYXNzIiwicHJvdmlkZXJfaW
+QiOiI2NWI2ODE4YmViY2RjNDgyM2I1ZGQxYTEifSwic3ViIjoiNjVjOGMwYWU5NWRmMTZjMzMzNmEwOTUyIiwidHlwIjoicmVmcmVzaCJ9.IlfKNnT44AIfIw73NvZ
+Z1OxMUV1zR-b23gZ6Y1JoCI4","user_id":"65c8c0ae95df16c3336a0952","device_id":"000000000000000000000000"}

@@ -7,21 +7,21 @@
 //
 // export function getTodos() {
 //
-//     // return async dispatch => {
-//     //     try {
-//     //         // debugger
-//     //         // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
-//     //         const response = await axios.get(`${API_URL}boards`, {params: {_page: 0, _limit: 1000}})
-//     //         // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
-//     //
-//     //         dispatch(getTodosAction(response.data))
-//     //         oldTodos = [...response.data]
-//     //         // console.log('getTodos')
-//     //     } catch (e) {
-//     //         alert(e.response.data.message)
-//     //     }
-//     //
-//     // }
+//     return async dispatch => {
+//         try {
+//             // debugger
+//             // const response = await axios.get(API_URL,{params:{_page:0,_limit: 1000}})
+//             const response = await axios.get(`${API_URL}boards`, {params: {_page: 0, _limit: 1000}})
+//             // , { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+//
+//             dispatch(getTodosAction(response.data))
+//             oldTodos = [...response.data]
+//             // console.log('getTodos')
+//         } catch (e) {
+//             alert(e.response.data.message)
+//         }
+//
+//     }
 //     // return async dispatch => {
 //     //     try {
 //     //         debugger
