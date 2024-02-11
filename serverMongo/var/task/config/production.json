@@ -1,11 +1,7 @@
+
 {
-  "serverPort": 5000,
-  "dbUrl": "mongodb+srv://romanchykovserhii:42FrOMxEyH0kj62l@cluster0.spfbgsw.mongodb.net/Cluster0?retryWrites=true&w=majority",
-  "secretKey": "roman-secret-key",
-  "staticPath": "E:\\FrontEnd\\TodoList\\serverMongo\\static",
-  "mongoApiKey": "G7kyUdFdqxLZSrFFbw2GQzFSP94EmrUXCzhMyoCpGoB96WaZvmsNRyvJbqYNGn6R",
-  "realmLoginUrl": "https://realm.mongodb.com/api/client/v2.0/app/data-tclyv/auth/providers/local-userpass/login",
-  "realmUsername": "romanchykov.serhii@gmail.com",
-  "realmPassword": "LcWBGd4CAABhL41Q",
-  "findOneEndpoint": "https://eu-central-1.aws.data.mongodb-api.com/app/data-tclyv/endpoint/data/v1/action/findOne"
+  "PORT": 5000,
+  "MONGO_URL": "mongodb+srv://romanchykovserhii:42FrOMxEyH0kj62l@cluster0.spfbgsw.mongodb.net/Cluster0?retryWrites=true&w=majority",
+  "PRIVATE_KEY": "roman-secret-key",
+  "staticPath": "E:\\FrontEnd\\TodoList\\serverMongo\\static"
 }
