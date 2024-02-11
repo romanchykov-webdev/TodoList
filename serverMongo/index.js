@@ -1,4 +1,4 @@
-
+const path = require('path')
 process.env['NODE_CONFIG_DIR'] = path.join(path.resolve("./"),"config/")
 const chalk = require('chalk');
 
@@ -27,7 +27,7 @@ const corsMiddleWare=require("./middleware/cors.middleware")
 app.use(corsMiddleWare)
 
 const filePathMiddleware=require("./middleware/filepath.middleware")
-const  path = require('path')
+// const  path = require('path')
 app.use(filePathMiddleware(path.resolve(__dirname,'files')))
 
 // auth
