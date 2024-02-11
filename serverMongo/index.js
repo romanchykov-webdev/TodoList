@@ -1,42 +1,33 @@
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+const express = require('express');
+const mongoose = require('mongoose');
+const config = require('config');
 const chalk = require('chalk');
-
-const errorMsg = chalk.bgKeyword('red').whiteBright;
-const successMsg = chalk.bgKeyword('white').greenBright;
-
-const express = require("express");
-const mongoose = require("mongoose");
-const config = require("config");
+const dotenv = require('dotenv');
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/mydatabase";
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "default-private-key";
+// Установка переменной окружения для пути к файлу конфигурации
+dotenv.config({ path: './.env' });
 
-const corsMiddleWare = require("./middleware/cors.middleware");
-app.use(corsMiddleWare);
+// Порт и URL для MongoDB должны браться из переменных окружения или файла конфигурации
+const PORT = process.env.PORT || config.get('serverPort');
+const MONGO_URL = process.env.MONGO_URL || config.get('dbUrl');
+const PRIVATE_KEY = process.env.PRIVATE_KEY || config.get('secretKey');
 
-const filePathMiddleware = require("./middleware/filepath.middleware");
-app.use(filePathMiddleware(path.resolve(__dirname, 'files')));
+// Остальные настройки сервера...
 
-const authRouter = require("./routes/auth.routes");
-app.use(express.json());
-app.use("/api/auth", authRouter);
-
-app.use(express.static('static'));
-
+// Запуск сервера
 const start = async () => {
     try {
         await mongoose.connect(MONGO_URL);
         app.listen(PORT, () => {
-            console.log(successMsg("Server started on port: ", PORT));
-            console.log(successMsg("Server started on MONGO_URL: ", MONGO_URL));
-            console.log(successMsg("Server started on PRIVATE_KEY: ", PRIVATE_KEY));
+            console.log(chalk.greenBright(`Server started on port: ${PORT}`));
+            console.log(chalk.greenBright(`MongoDB connected at: ${MONGO_URL}`));
+            console.log(chalk.greenBright(`Private key: ${PRIVATE_KEY}`));
         });
     } catch (e) {
-        console.log(errorMsg(e));
+        console.log(chalk.redBright(e));
     }
 };
 
