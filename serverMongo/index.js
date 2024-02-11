@@ -1,4 +1,5 @@
 
+process.env['NODE_CONFIG_DIR'] = path.join(path.resolve("./"),"config/")
 const chalk = require('chalk');
 
 const errorMsg = chalk.bgKeyword('red').whiteBright
