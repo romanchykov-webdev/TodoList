@@ -11,7 +11,7 @@ const config = require("config");
 
 const app = express();
 dotenv.config({ path: '.env' });
-const PORT = process.env.PORT
+const PORT = process.env.PORT || config.get('serverPort')
 const MONGO_URL = process.env.MONGO_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
@@ -19,7 +19,7 @@ const corsMiddleWare = require("./middleware/cors.middleware");
 app.use(corsMiddleWare);
 
 const filePathMiddleware = require("./middleware/filepath.middleware");
-app.use(filePathMiddleware(path.resolve(__dirname, 'files')));
+app.use(filePathMiddleware(path.resolve(__dirname, 'static')));
 
 const authRouter = require("./routes/auth.routes");
 app.use(express.json());
