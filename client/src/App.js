@@ -36,11 +36,11 @@ function App() {
                 <>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="*" element={<Login/>}/>
+                    <Route path="/" element={<Login/>}/>
                 </>
             ) : (
                 <>
-                <Route path="/*" element={
+                <Route path="/" element={
                     <>
                         {isActiveLabelPopup && <LabelChangePopup/>}
                         {isActiveCardBig && <PopupBigCard/>}
@@ -52,7 +52,7 @@ function App() {
                 }/>
                 </>
             )}
-            <Route path="*" element={<Error404/>}/>
+            <Route path="/*" element={<Error404/>}/>
         </Routes>
             <Footer/>
         </div>

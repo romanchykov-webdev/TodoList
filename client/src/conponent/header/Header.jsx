@@ -81,10 +81,14 @@ const Header = () => {
                 </div>
                 {
                     !isAuth && <div className={s.backgroundHidden}>
-                        <NavLink to={"/login"}>
+                        <NavLink
+                            className="navLink"
+                            to={"/login"}>
                             Login
                         </NavLink>
-                        <NavLink to={"/registration"}>
+                        <NavLink
+                            className="navLink"
+                            to={"/registration"}>
                             Registration
                         </NavLink>
                     </div>

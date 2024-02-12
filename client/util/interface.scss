@@ -92,3 +92,10 @@ input,textarea{
     max-height: 200px;
   }
 }
+.navLink{
+  &.active{
+    border-bottom: 1px solid white;
+    font-weight: bold;
+    //text-transform: uppercase;
+  }
+}
